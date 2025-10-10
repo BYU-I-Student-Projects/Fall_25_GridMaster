@@ -1,0 +1,153 @@
+[gd_scene load_steps=10 format=3 uid="uid://b1cdglo2aqkhe"]
+
+[ext_resource type="Script" path="res://Main.gd" id="1_k7rd8"]
+[ext_resource type="Script" uid="uid://dnvkq8tek5vps" path="res://tile_map.gd" id="2_appru"]
+[ext_resource type="Texture2D" uid="uid://c2wntikh70r1s" path="res://grass_tile_128.png" id="2_mdl1i"]
+[ext_resource type="Texture2D" uid="uid://i5lvvj2hi2l6" path="res://highlight_tile_128.png" id="3_kvaqq"]
+[ext_resource type="Texture2D" uid="uid://cqk2dhlas75bq" path="res://guy.png" id="4_nx0r3"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_a860w"]
+resource_name = "Grass_tile"
+texture = ExtResource("2_mdl1i")
+texture_region_size = Vector2i(128, 128)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+7:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+7:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+6:2/0 = 0
+7:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+4:3/0 = 0
+5:3/0 = 0
+6:3/0 = 0
+7:3/0 = 0
+0:4/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+3:4/0 = 0
+4:4/0 = 0
+5:4/0 = 0
+6:4/0 = 0
+7:4/0 = 0
+0:5/0 = 0
+1:5/0 = 0
+2:5/0 = 0
+3:5/0 = 0
+4:5/0 = 0
+5:5/0 = 0
+6:5/0 = 0
+7:5/0 = 0
+0:6/0 = 0
+1:6/0 = 0
+2:6/0 = 0
+3:6/0 = 0
+4:6/0 = 0
+5:6/0 = 0
+6:6/0 = 0
+7:6/0 = 0
+0:7/0 = 0
+1:7/0 = 0
+2:7/0 = 0
+3:7/0 = 0
+4:7/0 = 0
+5:7/0 = 0
+6:7/0 = 0
+7:7/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_q0a1r"]
+texture = ExtResource("3_kvaqq")
+texture_region_size = Vector2i(128, 128)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+7:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+7:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+6:2/0 = 0
+7:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+6:3/0 = 0
+7:3/0 = 0
+0:4/0 = 0
+1:4/0 = 0
+6:4/0 = 0
+7:4/0 = 0
+0:5/0 = 0
+1:5/0 = 0
+6:5/0 = 0
+7:5/0 = 0
+0:6/0 = 0
+1:6/0 = 0
+2:6/0 = 0
+3:6/0 = 0
+4:6/0 = 0
+5:6/0 = 0
+6:6/0 = 0
+7:6/0 = 0
+0:7/0 = 0
+1:7/0 = 0
+2:7/0 = 0
+3:7/0 = 0
+4:7/0 = 0
+5:7/0 = 0
+6:7/0 = 0
+7:7/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vdqkj"]
+resource_name = "Player"
+texture = ExtResource("4_nx0r3")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_3pmb0"]
+tile_size = Vector2i(128, 128)
+sources/0 = SubResource("TileSetAtlasSource_a860w")
+sources/1 = SubResource("TileSetAtlasSource_q0a1r")
+sources/2 = SubResource("TileSetAtlasSource_vdqkj")
+
+[node name="Node" type="Node"]
+script = ExtResource("1_k7rd8")
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_3pmb0")
+format = 2
+layer_0/name = "Layer2"
+layer_1/name = "Layer1"
+layer_1/y_sort_enabled = true
+layer_2/name = "Layer0"
+layer_2/y_sort_enabled = true
+script = ExtResource("2_appru")
