@@ -20,6 +20,8 @@ func _ready():
 			
 	#sets players
 	set_cell(2, player1, 2, Vector2i(0,0), 0)
+	#creates resource counter
+	#$Label.text = Player.Current_resource
 			
 			
 func _process(_delta) :
