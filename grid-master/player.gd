@@ -4,7 +4,7 @@ class_name Player
 var max_health := 100
 var health := max_health
 
-@onready var health_bar = $CanvasLayer/Health
+@onready var health_bar = $CanvasLayer/HealthBar
 
 func _ready():
 	_update_health()

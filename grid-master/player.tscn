@@ -1,0 +1,66 @@
+[gd_scene load_steps=7 format=3 uid="uid://c3kvbud4t1din"]
+
+[ext_resource type="Script" uid="uid://copjl62rwxby6" path="res://player.gd" id="1_onrkg"]
+[ext_resource type="Script" uid="uid://b2bf0tgea7f7o" path="res://Grid/Health_bar.gd" id="2_i3pqv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hqtel"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sweqy"]
+bg_color = Color(0.018961255, 0.7281601, 0, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2hs0m"]
+bg_color = Color(0.50980395, 0, 0.03137255, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1jxqw"]
+bg_color = Color(0.98787135, 0.0011611544, 0.10385706, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="Player" type="Node2D"]
+script = ExtResource("1_onrkg")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HealthBar" type="ProgressBar" parent="CanvasLayer"]
+z_index = 1
+custom_minimum_size = Vector2(240, 4)
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+size_flags_horizontal = 0
+theme_override_styles/background = SubResource("StyleBoxEmpty_hqtel")
+theme_override_styles/fill = SubResource("StyleBoxFlat_sweqy")
+value = 100.0
+show_percentage = false
+script = ExtResource("2_i3pqv")
+metadata/_edit_use_anchors_ = true
+
+[node name="DamageBar" type="ProgressBar" parent="CanvasLayer/HealthBar"]
+z_index = -1
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_2hs0m")
+theme_override_styles/fill = SubResource("StyleBoxFlat_1jxqw")
+value = 80.0
+show_percentage = false
+metadata/_edit_use_anchors_ = true
+
+[node name="Timer" type="Timer" parent="CanvasLayer/HealthBar"]
+wait_time = 0.4
+one_shot = true
+
+[connection signal="timeout" from="CanvasLayer/HealthBar/Timer" to="CanvasLayer/HealthBar" method="_on_timer_timeout"]
