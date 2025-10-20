@@ -17,6 +17,8 @@ func _on_player_add_value(playerID, valueID, value):
 		if (valueID == 1):
 			heal(value)
 		elif (valueID == 2):
+			apply_damage(value)
+		elif (valueID == 3):
 			resource_count += value
 			print(resource_count)
 
