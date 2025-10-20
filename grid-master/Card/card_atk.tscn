@@ -1,0 +1,43 @@
+[gd_scene load_steps=3 format=3 uid="uid://8qmdc2sgcg5g"]
+
+[ext_resource type="Script" uid="uid://dd0d4q51fx6f3" path="res://Card/Card.gd" id="1_xyggs"]
+[ext_resource type="Texture2D" uid="uid://cding6dgw46o6" path="res://Card/temp basic card template.png" id="2_tq7yw"]
+
+[node name="Card" type="Node2D"]
+script = ExtResource("1_xyggs")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(527, 282)
+scale = Vector2(0.597778, 0.597778)
+texture = ExtResource("2_tq7yw")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="CardMoveButton" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 392.0
+offset_top = 163.0
+offset_right = 662.0
+offset_bottom = 281.0
+text = "Move: one space
+"
+
+[node name="CardActionButton" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 392.0
+offset_top = 284.0
+offset_right = 662.0
+offset_bottom = 401.0
+text = "Attack: 10 DMG"
+
+[node name="CardResourceButton" type="Button" parent="Control"]
+layout_mode = 0
+offset_left = 392.0
+offset_top = 404.0
+offset_right = 662.0
+offset_bottom = 521.0
+text = "Resource"
