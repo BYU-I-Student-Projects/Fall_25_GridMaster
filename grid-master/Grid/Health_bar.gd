@@ -18,7 +18,8 @@ func update_health(current: int, max_health: int) -> void:
 	damage_bar.max_value = max_health
 
 	if health <= 0:
-		queue_free()
+		print("Game over")
+		#queue_free()
 
 	if health < previous:
 		timer.start()
