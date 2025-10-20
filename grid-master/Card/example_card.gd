@@ -9,4 +9,4 @@ func effect_two():
 	PlayerAddValue.emit_signal("player_add_value", 1, 1, 10)
 
 func effect_three():
-	print("Resources++")
+	PlayerAddValue.emit_signal("player_add_value", 1, 2, 2)
