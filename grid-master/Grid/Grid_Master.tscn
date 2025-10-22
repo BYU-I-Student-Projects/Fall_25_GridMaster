@@ -161,8 +161,8 @@ script = ExtResource("7_a860w")
 
 [node name="Player" parent="." instance=ExtResource("7_gmv2k")]
 
-[node name="Card" parent="." instance=ExtResource("8_8g3qx")]
+[node name="Example Card (Heal)" parent="." instance=ExtResource("8_8g3qx")]
 position = Vector2(446, 67)
 
-[node name="Card2" parent="." instance=ExtResource("9_ft85k")]
-position = Vector2(162, 66)
+[node name="Example Card (Damage)" parent="." instance=ExtResource("9_ft85k")]
+position = Vector2(161, 64)
