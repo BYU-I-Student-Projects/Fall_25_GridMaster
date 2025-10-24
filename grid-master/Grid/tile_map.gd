@@ -1,6 +1,7 @@
 extends TileMap
 
-var GridSize = 5
+var GridSizeX = 5
+var GridSizeY = 5
 var Dic = {}
 var prev_tile = Vector2i(-1,-1)
 var player1 = Vector2i(2, 4)
@@ -11,8 +12,8 @@ var player_turn = 1
 func _ready():
 	
 	#sets grass grid
-	for x in GridSize:
-		for y in GridSize:
+	for x in GridSizeX:
+		for y in GridSizeY:
 			Dic[str(Vector2i(x,y))] = {
 					"type" : "Grass"
 			}

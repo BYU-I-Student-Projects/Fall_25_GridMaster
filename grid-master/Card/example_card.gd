@@ -7,7 +7,7 @@ func effect_one():
 	PlayerAddValue.emit_signal("move_player", 1)
 
 func effect_two():
-	print("HP++")
+	PlayerAddValue.emit_signal("player_add_value", 1, 1, 10)
 
 func effect_three():
 	print("Resources++")
