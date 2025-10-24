@@ -20,6 +20,9 @@ func _ready():
 			
 	#sets players
 	set_cell(2, player1, 2, Vector2i(0,0), 0)
+	
+	#connects move_player to card actions
+	PlayerAddValue.connect("move_player", self.move_player)
 			
 			
 func _process(_delta) :
@@ -44,3 +47,22 @@ func _input(event):
 		player1 = Vector2i(tile)
 		set_cell(2, player1, 2, Vector2i(0,0), 0)
 		
+func move_player(moving_tile):
+	display_valid_moves(player1, moving_tile)
+	
+	if event.is_action_pressed("LeftClick") and valid_move():
+		erase_cell(2, player1)
+		player1 = Vector2i(tile)
+		set_cell(2, player1, 2, Vector2i(0,0), 0)
+
+
+func display_valid_move(player1: Vector2i, moving_tile: int) -> void:
+	for x in range(GridSizeX):
+		for y in range(GridSizeY):
+			if (
+				player1.x - moving_tile <= x and x <= player1.x + moving_tile
+				and player1.y - moving_tile <= y and y <= player1.y + moving_tile
+			):
+				set_cell(3, Vector2i(x, y), 3, Vector2i(0, 0), 0)
+			else:
+				set_cell(4, Vector2i(x, y), 3, Vector2i(0, 0), 0)
