@@ -17,7 +17,7 @@ func _ready():
 			Dic[str(Vector2i(x,y))] = {
 					"type" : "Grass"
 			}
-			set_cell(0, Vector2(x, y), 0, Vector2i(0,0))
+			set_cell(0, Vector2(x, y), 0, Vector2i(0,0), 0)
 			
 	#sets players
 	set_cell(2, player1, 2, Vector2i(0,0), 0)
