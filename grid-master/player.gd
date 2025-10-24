@@ -4,6 +4,7 @@ class_name Player
 var max_health := 100
 var health := max_health
 var pID := 1
+var resource_count := 0
 
 @onready var health_bar = $CanvasLayer/HealthBar
 
@@ -16,11 +17,10 @@ func _on_player_add_value(playerID, valueID, value):
 		if (valueID == 1):
 			heal(value)
 		elif (valueID == 2):
-			pass #add resource
-
-func _process(delta):
-	if Input.is_action_just_pressed("ui_accept"):  # Space key
-		apply_damage(10)
+			apply_damage(value)
+		elif (valueID == 3):
+			resource_count += value
+			print(resource_count)
 
 func apply_damage(amount: int):
 	health = clamp(health - amount, 0, max_health)

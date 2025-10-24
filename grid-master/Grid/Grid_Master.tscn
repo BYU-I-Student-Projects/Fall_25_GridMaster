@@ -1,13 +1,13 @@
 [gd_scene load_steps=13 format=3 uid="uid://b1cdglo2aqkhe"]
 
 [ext_resource type="Script" path="res://Main.gd" id="1_k7rd8"]
-[ext_resource type="Script" uid="uid://dnvkq8tek5vps" path="res://Grid/tile_map.gd" id="2_appru"]
 [ext_resource type="Texture2D" uid="uid://tkkhewsq13xd" path="res://Grid/grass_tile_128.png" id="2_mdl1i"]
 [ext_resource type="Texture2D" uid="uid://cab412hpc5ixm" path="res://Grid/highlight_tile_128.png" id="3_kvaqq"]
 [ext_resource type="Texture2D" uid="uid://be0s7gfp84aqc" path="res://Grid/guy.png" id="4_nx0r3"]
 [ext_resource type="Script" uid="uid://1s4l1fgu6q3c" path="res://opponent.gd" id="7_a860w"]
 [ext_resource type="PackedScene" uid="uid://c3kvbud4t1din" path="res://player.tscn" id="7_gmv2k"]
 [ext_resource type="PackedScene" uid="uid://douv3iraewxih" path="res://Card/example_card.tscn" id="8_8g3qx"]
+[ext_resource type="PackedScene" uid="uid://8qmdc2sgcg5g" path="res://Card/card_atk.tscn" id="9_ft85k"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_a860w"]
 resource_name = "Grass_tile"
@@ -148,6 +148,7 @@ script = ExtResource("1_k7rd8")
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_3pmb0")
 format = 2
+<<<<<<< HEAD
 layer_0/name = "Layer3"
 layer_1/name = "Layer2"
 layer_2/name = "Layer1"
@@ -155,11 +156,21 @@ layer_3/name = "Layer0"
 script = ExtResource("2_appru")
 layer_2/y_sort_enabled = false
 layer_3/y_sort_enabled = false
+=======
+layer_0/name = "Layer2"
+layer_1/name = "Layer1"
+layer_1/y_sort_enabled = true
+layer_2/name = "Layer0"
+layer_2/y_sort_enabled = true
+>>>>>>> week6_stuff
 
 [node name="Opponent" type="Node" parent="."]
 script = ExtResource("7_a860w")
 
 [node name="Player" parent="." instance=ExtResource("7_gmv2k")]
 
-[node name="Card" parent="." instance=ExtResource("8_8g3qx")]
+[node name="Example Card (Heal)" parent="." instance=ExtResource("8_8g3qx")]
 position = Vector2(446, 67)
+
+[node name="Example Card (Damage)" parent="." instance=ExtResource("9_ft85k")]
+position = Vector2(161, 64)
