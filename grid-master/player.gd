@@ -22,10 +22,6 @@ func _on_player_add_value(playerID, valueID, value):
 			resource_count += value
 			print(resource_count)
 
-func _process(_delta):
-	if Input.is_action_just_pressed("ui_accept"):  # Space key
-		apply_damage(10)
-
 func apply_damage(amount: int):
 	health = clamp(health - amount, 0, max_health)
 	_update_health()
