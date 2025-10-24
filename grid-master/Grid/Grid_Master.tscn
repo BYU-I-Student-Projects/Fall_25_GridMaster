@@ -148,21 +148,11 @@ script = ExtResource("1_k7rd8")
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_3pmb0")
 format = 2
-<<<<<<< HEAD
-layer_0/name = "Layer3"
-layer_1/name = "Layer2"
-layer_2/name = "Layer1"
-layer_3/name = "Layer0"
-script = ExtResource("2_appru")
-layer_2/y_sort_enabled = false
-layer_3/y_sort_enabled = false
-=======
 layer_0/name = "Layer2"
 layer_1/name = "Layer1"
 layer_1/y_sort_enabled = true
 layer_2/name = "Layer0"
 layer_2/y_sort_enabled = true
->>>>>>> week6_stuff
 
 [node name="Opponent" type="Node" parent="."]
 script = ExtResource("7_a860w")
