@@ -10,7 +10,7 @@ var resource_count := 0
 
 func _ready():
 	_update_health()
-	PlayerAddValue.connect("player_add_value", self._on_player_add_value)
+	GlobalSignal.connect("player_add_value", self._on_player_add_value)
 
 func _on_player_add_value(playerID, valueID, value):
 	if (playerID == pID):

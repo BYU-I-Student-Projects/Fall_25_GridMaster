@@ -10,7 +10,7 @@ var player_turn = 1
 
 
 func _ready():
-	
+	GlobalSignal.connect("player_move", _on_player_move)
 	#sets grass grid
 	for x in GridSizeX:
 		for y in GridSizeY:
@@ -45,3 +45,6 @@ func _input(event):
 		player1 = Vector2i(tile)
 		set_cell(2, player1, 2, Vector2i(0,0), 0)
 		
+
+func _on_player_move():
+	pass
