@@ -1,43 +1,32 @@
 [gd_scene load_steps=3 format=3 uid="uid://8qmdc2sgcg5g"]
 
-[ext_resource type="Script" uid="uid://dd0d4q51fx6f3" path="res://Card/Card.gd" id="1_xyggs"]
-[ext_resource type="Texture2D" uid="uid://cding6dgw46o6" path="res://Card/temp basic card template.png" id="2_tq7yw"]
+[ext_resource type="PackedScene" uid="uid://mmukdh7uayme" path="res://Card/card.tscn" id="1_ud83n"]
+[ext_resource type="Script" uid="uid://cop353l1pmxqu" path="res://Card/card_atk.gd" id="2_xyggs"]
 
-[node name="Card" type="Node2D"]
-script = ExtResource("1_xyggs")
+[node name="Card" instance=ExtResource("1_ud83n")]
+script = ExtResource("2_xyggs")
+btn1_path = null
+btn2_path = null
+btn3_path = null
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(527, 282)
-scale = Vector2(0.597778, 0.597778)
-texture = ExtResource("2_tq7yw")
+[node name="CardMoveButton" parent="Control" index="0"]
+offset_left = 407.0
+offset_top = 378.0
+offset_right = 647.0
+offset_bottom = 419.0
+text = "Move: 1"
 
-[node name="Control" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="CardMoveButton" type="Button" parent="Control"]
-layout_mode = 0
-offset_left = 392.0
-offset_top = 163.0
-offset_right = 662.0
-offset_bottom = 281.0
-text = "Move: one space
+[node name="CardActionButton" parent="Control" index="1"]
+offset_left = 406.0
+offset_top = 419.0
+offset_right = 647.0
+offset_bottom = 465.0
+text = "Damage Self 1o
 "
 
-[node name="CardActionButton" type="Button" parent="Control"]
-layout_mode = 0
-offset_left = 392.0
-offset_top = 284.0
-offset_right = 662.0
-offset_bottom = 401.0
-text = "Attack: 10 DMG"
-
-[node name="CardResourceButton" type="Button" parent="Control"]
-layout_mode = 0
-offset_left = 392.0
-offset_top = 404.0
-offset_right = 662.0
-offset_bottom = 521.0
-text = "Resource"
+[node name="CardResourceButton" parent="Control" index="2"]
+offset_left = 406.0
+offset_top = 465.0
+offset_right = 648.0
+offset_bottom = 510.0
+text = "Resource -2"
