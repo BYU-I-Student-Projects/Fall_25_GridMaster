@@ -12,7 +12,7 @@ var move_range = 0
 
 
 func _ready():
-	PlayerAddValue.connect("player_move", _on_player_move)
+	GlobalSignal.connect("player_move", _on_player_move)
 	
 	#sets grass grid
 	for x in GridSizeX:

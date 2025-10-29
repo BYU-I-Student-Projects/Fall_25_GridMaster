@@ -5,6 +5,9 @@
 
 [node name="Card" instance=ExtResource("1_ud83n")]
 script = ExtResource("2_xyggs")
+btn1_path = null
+btn2_path = null
+btn3_path = null
 
 [node name="CardMoveButton" parent="Control" index="0"]
 offset_left = 407.0
