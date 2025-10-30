@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://i4xm3x0g2irk"]
+
+[ext_resource type="PackedScene" uid="uid://mmukdh7uayme" path="res://Card/card.tscn" id="1_10h2e"]
+[ext_resource type="Script" uid="uid://jke4e3pku0c6" path="res://Card/temp_card_opponent.gd" id="2_6pelo"]
+
+[node name="Card" instance=ExtResource("1_10h2e")]
+script = ExtResource("2_6pelo")
+
+[node name="CardMoveButton" parent="Control" index="0"]
+offset_top = 372.0
+offset_bottom = 418.0
+text = "Opponent Move 1
+"
+
+[node name="CardActionButton" parent="Control" index="1"]
+offset_top = 419.0
+offset_bottom = 464.0
+text = "Opponent HP -10"
+
+[node name="CardResourceButton" parent="Control" index="2"]
+offset_top = 464.0
+text = "Opponent Res -2"
