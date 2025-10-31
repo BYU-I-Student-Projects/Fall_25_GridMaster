@@ -1,5 +1,4 @@
 extends Card
-
 class_name Example_Card
 
 func effect_one():
