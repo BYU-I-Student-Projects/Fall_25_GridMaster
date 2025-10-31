@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://8qmdc2sgcg5g"]
+
+[ext_resource type="PackedScene" uid="uid://mmukdh7uayme" path="res://Card/Card_Sence/card.tscn" id="1_ud83n"]
+[ext_resource type="Script" uid="uid://cop353l1pmxqu" path="res://Card/card_atk.gd" id="2_xyggs"]
+
+[node name="Card" instance=ExtResource("1_ud83n")]
+script = ExtResource("2_xyggs")
+
+[node name="CardMoveButton" parent="Control" index="0"]
+offset_left = 407.0
+offset_top = 378.0
+offset_right = 647.0
+offset_bottom = 419.0
+text = "Move: 1"
+
+[node name="CardActionButton" parent="Control" index="1"]
+offset_left = 406.0
+offset_top = 419.0
+offset_right = 647.0
+offset_bottom = 465.0
+text = "Damage Player 2 1o
+"
+
+[node name="CardResourceButton" parent="Control" index="2"]
+offset_left = 406.0
+offset_top = 465.0
+offset_right = 648.0
+offset_bottom = 510.0
+text = "Resource -2"

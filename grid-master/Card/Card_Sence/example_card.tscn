@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=3 uid="uid://douv3iraewxih"]
+
+[ext_resource type="PackedScene" uid="uid://mmukdh7uayme" path="res://Card/Card_Sence/card.tscn" id="1_qxe7c"]
+[ext_resource type="Script" uid="uid://dqwgiasxbpc06" path="res://Card/Player_2_card_atk.gd" id="2_qxe7c"]
+[ext_resource type="Texture2D" uid="uid://cytutuyie2wvr" path="res://Card/Card_PNGS/temp example card.png" id="3_444uv"]
+
+[node name="Card" instance=ExtResource("1_qxe7c")]
+script = ExtResource("2_qxe7c")
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("3_444uv")

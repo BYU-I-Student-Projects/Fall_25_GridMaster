@@ -25,4 +25,4 @@ func apply_damage(amount: int):
 
 func heal(amount: int):
 	health = clamp(health + amount, 0, max_health)
-	print("Player 2 heal")
+	print("Player 2 heal %d health is now %d" % [amount,health])
