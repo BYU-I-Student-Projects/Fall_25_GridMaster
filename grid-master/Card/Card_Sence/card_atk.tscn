@@ -6,6 +6,15 @@
 [node name="Card" instance=ExtResource("1_ud83n")]
 script = ExtResource("2_xyggs")
 
+[node name="Sprite2D" parent="." index="0"]
+position = Vector2(105.00003, 936)
+
+[node name="Control" parent="." index="1"]
+offset_left = -422.0
+offset_top = 654.0
+offset_right = -382.0
+offset_bottom = 694.0
+
 [node name="CardMoveButton" parent="Control" index="0"]
 offset_left = 407.0
 offset_top = 378.0
