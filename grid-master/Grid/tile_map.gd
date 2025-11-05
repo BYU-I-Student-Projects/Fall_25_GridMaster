@@ -27,7 +27,7 @@ func _ready():
 			
 			
 func _process(_delta) :
-	var tile = local_to_map(get_global_mouse_position())
+	var tile = get_relative_mouse_position()
 
 	if prev_tile != tile:
 		erase_cell(1, prev_tile)
@@ -64,3 +64,8 @@ func _input(event):
 
 			can_move = false
 		
+
+func get_relative_mouse_position() -> Vector2i:
+	var local_pos = to_local(get_viewport().get_mouse_position())
+	local_pos /= scale
+	return Vector2i(int(local_pos.x / tile_set.tile_size.x * scale.x), int(local_pos.y / tile_set.tile_size.y * scale.y))
