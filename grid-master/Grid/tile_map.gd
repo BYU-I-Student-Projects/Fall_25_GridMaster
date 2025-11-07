@@ -50,7 +50,7 @@ func _input(event):
 		return
 
 	if event.is_action_pressed("LeftClick"):
-		var tile = Vector2i(local_to_map(get_global_mouse_position()))
+		var tile = get_relative_mouse_position()
 
 		if not Dic.has(str(tile)):
 			return
