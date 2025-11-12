@@ -5,8 +5,49 @@ var max_health := 100
 var health := max_health
 var pID := 1
 var resource_count := 0
+var turntimer := 0
 
 @onready var health_bar = $CanvasLayer/HealthBar
+
+func _status_effect(status):
+	if status == "poison":
+		#player takes gradual damage for a few turns.
+		apply_damage(10)
+		if turntimer == 0:
+			turntimer += 1
+		elif turntimer == 1:
+			turntimer += 1
+		elif turntimer == 2:
+			turntimer = 0
+			#cure status here.
+	elif status == "freeze":
+		#player cant use one card for one turn. Card is discarded next turn.
+		apply_damage(10)
+	elif status == "burn":
+		#player deals less damage for a few turns.
+		apply_damage(10)
+		if turntimer == 0:
+			turntimer += 1
+		elif turntimer == 1:
+			turntimer += 1
+		elif turntimer == 2:
+			turntimer = 0
+			#cure status here.
+	elif status == "regen":
+		#player gradually heals for a few turns.
+		heal(10)
+		if turntimer == 0:
+			turntimer += 1
+		elif turntimer == 1:
+			turntimer += 1
+		elif turntimer == 2:
+			turntimer = 0
+			#cure status here.
+	elif status == "shock":
+		#player cannot move for a turn.
+		apply_damage(10)
+	else:
+		print("Status does not exist.")
 
 func _ready():
 	_update_health()
