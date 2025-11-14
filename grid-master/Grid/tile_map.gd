@@ -44,12 +44,57 @@ func _process(_delta) :
 func _on_player_move(playerID, dist):
 	if playerID != 1:
 		return
-	if (dist == 1):
+	if (dist == 1): #Move to any adjacent on immedate next tiles
 		valid_move_array.append(player1 + Vector2i(1, 0))
 		valid_move_array.append(player1 + Vector2i(-1, 0))
 		valid_move_array.append(player1 + Vector2i(0, 1))
 		valid_move_array.append(player1 + Vector2i(0, -1))
-		
+	if (dist == 2): #Move to any corners on immedate next times
+		valid_move_array.append(player1 + Vector2i(1, 1))
+		valid_move_array.append(player1 + Vector2i(-1, 1))
+		valid_move_array.append(player1 + Vector2i(1, -1))
+		valid_move_array.append(player1 + Vector2i(-1, -1))
+	if (dist == 3): #Move to any of the immediate tiles
+		valid_move_array.append(player1 + Vector2i(1, 0))
+		valid_move_array.append(player1 + Vector2i(-1, 0))
+		valid_move_array.append(player1 + Vector2i(0, 1))
+		valid_move_array.append(player1 + Vector2i(0, -1))
+		valid_move_array.append(player1 + Vector2i(1, 1))
+		valid_move_array.append(player1 + Vector2i(-1, 1))
+		valid_move_array.append(player1 + Vector2i(-1, -1))
+		valid_move_array.append(player1 + Vector2i(1, -1))
+	if (dist == 4): #Move to any of the 3 immediately ahead tiles
+		valid_move_array.append(player1 + Vector2i(1, 0))
+		valid_move_array.append(player1 + Vector2i(1, 1))
+		valid_move_array.append(player1 + Vector2i(-1, 1))
+	if (dist == 5): #Move to any of the 3 immediately behind tiles
+		valid_move_array.append(player1 + Vector2i(-1, 0))
+		valid_move_array.append(player1 + Vector2i(-1, -1))
+		valid_move_array.append(player1 + Vector2i(1, -1))
+	if (dist == 6): #Moves side to side
+		valid_move_array.append(player1 + Vector2i(1, 0))
+		valid_move_array.append(player1 + Vector2i(-1, 0))
+	if (dist == 7): #Moves forward or back
+		valid_move_array.append(player1 + Vector2i(0, 1))
+		valid_move_array.append(player1 + Vector2i(0, -1))
+	if (dist == 8): #Jumps 2 tiles in a cardinal direction
+		valid_move_array.append(player1 + Vector2i(2, 0))
+		valid_move_array.append(player1 + Vector2i(-2, 0))
+		valid_move_array.append(player1 + Vector2i(0, 2))
+		valid_move_array.append(player1 + Vector2i(0, -2))
+		valid_move_array.append(player1 + Vector2i(2, 2))
+		valid_move_array.append(player1 + Vector2i(-2, 2))
+		valid_move_array.append(player1 + Vector2i(-2, -2))
+		valid_move_array.append(player1 + Vector2i(2, -2))
+	if (dist == 9): #Knight movements
+		valid_move_array.append(player1 + Vector2i(1, 2))
+		valid_move_array.append(player1 + Vector2i(2, 1))
+		valid_move_array.append(player1 + Vector2i(-1, 2))
+		valid_move_array.append(player1 + Vector2i(-2, 1))
+		valid_move_array.append(player1 + Vector2i(1, -2))
+		valid_move_array.append(player1 + Vector2i(2, -1))
+		valid_move_array.append(player1 + Vector2i(-1, -2))
+		valid_move_array.append(player1 + Vector2i(-2, -1))
 	can_move_1 = true
 	
 func _external_move(playerID, x, y):

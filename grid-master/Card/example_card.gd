@@ -2,7 +2,7 @@ extends Card
 class_name Example_Card
 
 func effect_one():
-	GlobalSignal.emit_signal("player_move", 1, 1)
+	GlobalSignal.emit_signal("player_move", 1, 4)
 
 func effect_two():
 	GlobalSignal.emit_signal("player_add_value", 1, 1, 10)
