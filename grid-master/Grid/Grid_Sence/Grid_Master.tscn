@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" path="res://Main.gd" id="1_k7rd8"]
 [ext_resource type="Script" uid="uid://dnvkq8tek5vps" path="res://Grid/tile_map.gd" id="2_appru"]
-[ext_resource type="Texture2D" uid="uid://bfldjtuwnb3om" path="res://Grid/Grid_PNGS/grass_tile_128.png" id="2_mdl1i"]
-[ext_resource type="Texture2D" uid="uid://bm2qj3xlts1ms" path="res://Grid/Grid_PNGS/highlight_tile_128.png" id="3_kvaqq"]
-[ext_resource type="Texture2D" uid="uid://g1g5rmsi2g0x" path="res://Grid/Grid_PNGS/guy.png" id="4_nx0r3"]
+[ext_resource type="Texture2D" uid="uid://dovfso5phqdym" path="res://Grid/Grid_PNGS/grass_tile_128.png" id="2_mdl1i"]
+[ext_resource type="Texture2D" uid="uid://dhmdmyblc0hiv" path="res://Grid/Grid_PNGS/highlight_tile_128.png" id="3_kvaqq"]
+[ext_resource type="Texture2D" uid="uid://b6u7v8kppvowq" path="res://Grid/Grid_PNGS/guy.png" id="4_nx0r3"]
 [ext_resource type="Script" path="res://Player_2.gd" id="7_a860w"]
 [ext_resource type="PackedScene" uid="uid://c3kvbud4t1din" path="res://player.tscn" id="7_gmv2k"]
 [ext_resource type="PackedScene" uid="uid://douv3iraewxih" path="res://Card/Card_Sence/example_card.tscn" id="8_8g3qx"]
@@ -12,7 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://8qmdc2sgcg5g" path="res://Card/Card_Sence/card_atk.tscn" id="9_ft85k"]
 [ext_resource type="PackedScene" uid="uid://bcnedb7tp1fjo" path="res://Card/Card_Sence/Player_2_card_atk.tscn" id="10_buktn"]
 [ext_resource type="PackedScene" uid="uid://olfn4mcln5m" path="res://Card/Card_Sence/Player_2_example_card.tscn" id="11_5775p"]
-[ext_resource type="Script" uid="uid://chm125hv2xprb" path="res://Card/Player_2_example_card.gd" id="13_kvhnw"]
+[ext_resource type="Script" path="res://Card/Player_2_example_card.gd" id="13_kvhnw"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_a860w"]
 resource_name = "Grass_tile"
@@ -45,11 +45,12 @@ position = Vector2(132, 55)
 scale = Vector2(1.2, 1.2)
 tile_set = SubResource("TileSet_3pmb0")
 format = 2
-layer_0/name = "Layer2"
-layer_1/name = "Layer1"
-layer_1/y_sort_enabled = true
-layer_2/name = "Layer0"
+layer_0/name = "Layer3"
+layer_1/name = "Layer2"
+layer_2/name = "Layer1"
 layer_2/y_sort_enabled = true
+layer_3/name = "Layer0"
+layer_3/y_sort_enabled = true
 script = ExtResource("2_appru")
 
 [node name="Player" parent="." instance=ExtResource("7_gmv2k")]

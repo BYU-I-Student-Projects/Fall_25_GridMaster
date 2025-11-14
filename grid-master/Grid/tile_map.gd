@@ -26,8 +26,8 @@ func _ready():
 			set_cell(0, Vector2(x, y), 0, Vector2i(0,0), 0)
 			
 	#sets players
-	set_cell(2, player1, 2, Vector2i(0,0), 0)
-	set_cell(2, player2, 2, Vector2i(0,0), 0)
+	set_cell(3, player1, 2, Vector2i(0,0), 0)
+	set_cell(3, player2, 2, Vector2i(0,0), 0)
 			
 			
 func _process(_delta) :
@@ -96,7 +96,16 @@ func _on_player_move(playerID, dist):
 		valid_move_array.append(player1 + Vector2i(-1, -2))
 		valid_move_array.append(player1 + Vector2i(-2, -1))
 	can_move_1 = true
-	
+	for z in valid_move_array:
+		if (z.x < 0) or (z.x > 2):
+			1 == 1 
+		elif (z.y < 0) or (z.y > 5):
+			1 == 1 
+		elif (z == player1) or (z == player2):
+			1 == 1 
+		else:
+			set_cell(2, z, 1, Vector2(0, 0)) 
+
 func _external_move(playerID, x, y):
 	if playerID == 1:
 		if ((player1 + Vector2i(x, y)).x < 0) or ((player1 + Vector2i(x, y)).x > 2):
@@ -105,10 +114,13 @@ func _external_move(playerID, x, y):
 			return
 		if ((player1 + Vector2i(x, y)) == player1) or ((player1 + Vector2i(x, y)) == player2):
 			return
-		erase_cell(2, player1)
+		erase_cell(3, player1)
 		player1 += Vector2i(x, y)
-		set_cell(2, player1, 2, Vector2i(0, 0), 0)
+		set_cell(3, player1, 2, Vector2i(0, 0), 0)
 		print("Player moved to ", player1)
+		for z in valid_move_array:
+			erase_cell(2, z) 
+
 	if playerID == 2:
 		if ((player2 + Vector2i(x, y)).x < 0) or ((player2 + Vector2i(x, y)).x > 2):
 			return
@@ -116,9 +128,9 @@ func _external_move(playerID, x, y):
 			return
 		if ((player2 + Vector2i(x, y)) == player1) or ((player2 + Vector2i(x, y)) == player2):
 			return
-		erase_cell(2, player2)
+		erase_cell(3, player2)
 		player2 += Vector2i(x, y)
-		set_cell(2, player2, 2, Vector2i(0, 0), 0)
+		set_cell(3, player2, 2, Vector2i(0, 0), 0)
 		print("Player moved to ", player2)
 	
 	
@@ -135,10 +147,12 @@ func _input(event):
 			return
 			
 		if tile in valid_move_array:
-			erase_cell(2, player1)
+			erase_cell(3, player1)
 			player1 = tile
-			set_cell(2, player1, 2, Vector2i(0, 0), 0)
+			set_cell(3, player1, 2, Vector2i(0, 0), 0)
 			print("Player moved to ", player1)
+			for z in valid_move_array:
+				erase_cell(2, z) 
 			valid_move_array = []
 			can_move_1 = false
 		
