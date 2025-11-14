@@ -64,13 +64,13 @@ func _on_player_move(playerID, dist):
 		valid_move_array.append(player1 + Vector2i(-1, -1))
 		valid_move_array.append(player1 + Vector2i(1, -1))
 	if (dist == 4): #Move to any of the 3 immediately ahead tiles
-		valid_move_array.append(player1 + Vector2i(1, 0))
-		valid_move_array.append(player1 + Vector2i(1, 1))
-		valid_move_array.append(player1 + Vector2i(-1, 1))
-	if (dist == 5): #Move to any of the 3 immediately behind tiles
-		valid_move_array.append(player1 + Vector2i(-1, 0))
-		valid_move_array.append(player1 + Vector2i(-1, -1))
+		valid_move_array.append(player1 + Vector2i(0, -1))
 		valid_move_array.append(player1 + Vector2i(1, -1))
+		valid_move_array.append(player1 + Vector2i(-1, -1))
+	if (dist == 5): #Move to any of the 3 immediately behind tiles
+		valid_move_array.append(player1 + Vector2i(0, 1))
+		valid_move_array.append(player1 + Vector2i(-1, 1))
+		valid_move_array.append(player1 + Vector2i(1, 1))
 	if (dist == 6): #Moves side to side
 		valid_move_array.append(player1 + Vector2i(1, 0))
 		valid_move_array.append(player1 + Vector2i(-1, 0))
