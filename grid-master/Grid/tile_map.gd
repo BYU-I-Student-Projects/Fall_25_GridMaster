@@ -10,6 +10,7 @@ var player_turn = 1
 var can_move_1 = false
 var can_move_2 = false
 var move_range = 0
+var valid_move_array = []
 
 
 func _ready():
@@ -43,10 +44,13 @@ func _process(_delta) :
 func _on_player_move(playerID, dist):
 	if playerID != 1:
 		return
+	if (dist == 1):
+		valid_move_array.append(player1 + Vector2i(1, 0))
+		valid_move_array.append(player1 + Vector2i(-1, 0))
+		valid_move_array.append(player1 + Vector2i(0, 1))
+		valid_move_array.append(player1 + Vector2i(0, -1))
 		
 	can_move_1 = true
-	move_range = dist
-	print("Player %d may now move %d tile(s)" % [playerID, dist])
 	
 func _external_move(playerID, x, y):
 	if playerID == 1:
@@ -84,14 +88,13 @@ func _input(event):
 
 		if not Dic.has(str(tile)):
 			return
-
-		var diff = tile - player1
-		if max(abs(diff.x), abs(diff.y)) <= move_range:
+			
+		if tile in valid_move_array:
 			erase_cell(2, player1)
 			player1 = tile
 			set_cell(2, player1, 2, Vector2i(0, 0), 0)
 			print("Player moved to ", player1)
-
+			valid_move_array = []
 			can_move_1 = false
 		
 
