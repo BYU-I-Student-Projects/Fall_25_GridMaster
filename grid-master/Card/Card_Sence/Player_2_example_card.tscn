@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://mmukdh7uayme" path="res://Card/Card_Sence/card.tscn" id="1_vagpa"]
 [ext_resource type="Script" uid="uid://c2b8p2fu5bb7x" path="res://Card/example_card.gd" id="2_iti74"]
-[ext_resource type="Texture2D" uid="uid://cytutuyie2wvr" path="res://Card/Card_PNGS/temp example card.png" id="3_e62mc"]
+[ext_resource type="Texture2D" uid="uid://d3ddmbqbiaeq" path="res://Card/Card_PNGS/temp example card.png" id="3_e62mc"]
 
 [node name="Card" instance=ExtResource("1_vagpa")]
 script = ExtResource("2_iti74")
