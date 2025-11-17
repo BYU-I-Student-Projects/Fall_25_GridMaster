@@ -25,6 +25,10 @@ window/size/viewport_width=720
 window/size/viewport_height=1280
 window/stretch/mode="viewport"
 
+[dotnet]
+
+project/assembly_name="GridMaster"
+
 [input]
 
 LeftClick={
