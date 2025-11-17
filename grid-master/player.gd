@@ -18,27 +18,27 @@ func _status_effect():
 			if turntimer[0] > 0:
 				apply_damage(10)
 				
-		if status[i] == status.FREEZE:
+		elif status[i] == status.FREEZE:
 			#player cant use one card for one turn. Card is discarded next turn.
 			if turntimer[i] > 0:
 				apply_damage(10)
 			
-		if status[i] == status.BURN:
+		elif status[i] == status.BURN:
 			#player deals less damage for a few turns.
 			if turntimer[i] > 0:
 				apply_damage(10)
 				
-		if status[i] == status.REGEN:
+		elif status[i] == status.REGEN:
 			#player gradually heals for a few turns.
 			if turntimer[i] > 0:
 				heal(20)
 				
-		if status[i] == status.SHOCK:
+		elif status[i] == status.SHOCK:
 			#player cannot move for a turn.
 			if turntimer[i] > 0:
 				apply_damage(10)
 
-		if turntimer[i] > 1:
+		if turntimer[i] > 0:
 			turntimer[i] -= 1
 
 func _ready():
