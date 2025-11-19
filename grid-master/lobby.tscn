@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://bf4wobp4pejdn"]
+
+[ext_resource type="PackedScene" uid="uid://de8cye1e0yply" path="res://addons/lan_multiplayer/scenes/lobby_controller.tscn" id="1_ll2xe"]
+
+[node name="lobby" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="lobby_controller" parent="." instance=ExtResource("1_ll2xe")]
+layout_mode = 1
+travel_to_scene = "res://Grid/Grid_Sence/Grid_Master.tscn"
