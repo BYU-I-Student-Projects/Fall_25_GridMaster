@@ -9,9 +9,8 @@ script = ExtResource("2_5k58d")
 [node name="CardMoveButton" parent="Control" index="0"]
 offset_left = 407.0
 offset_top = 378.0
-offset_right = 647.0
 offset_bottom = 419.0
-text = "Move: 1"
+text = "P2 Move DOWN "
 
 [node name="CardActionButton" parent="Control" index="1"]
 offset_left = 406.0
@@ -23,7 +22,4 @@ text = "Damage Player 1 1o
 
 [node name="CardResourceButton" parent="Control" index="2"]
 offset_left = 406.0
-offset_top = 465.0
-offset_right = 648.0
-offset_bottom = 510.0
 text = "Resource -2"

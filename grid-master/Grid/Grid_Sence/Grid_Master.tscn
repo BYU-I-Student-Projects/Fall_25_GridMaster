@@ -1,11 +1,11 @@
-[gd_scene load_steps=18 format=3 uid="uid://b1cdglo2aqkhe"]
+[gd_scene load_steps=19 format=3 uid="uid://b1cdglo2aqkhe"]
 
 [ext_resource type="Script" path="res://Main.gd" id="1_k7rd8"]
 [ext_resource type="Script" uid="uid://dnvkq8tek5vps" path="res://Grid/tile_map.gd" id="2_appru"]
-[ext_resource type="Texture2D" uid="uid://bfldjtuwnb3om" path="res://Grid/Grid_PNGS/grass_tile_128.png" id="2_mdl1i"]
-[ext_resource type="Texture2D" uid="uid://bm2qj3xlts1ms" path="res://Grid/Grid_PNGS/highlight_tile_128.png" id="3_kvaqq"]
-[ext_resource type="Texture2D" uid="uid://g1g5rmsi2g0x" path="res://Grid/Grid_PNGS/guy.png" id="4_nx0r3"]
-[ext_resource type="Script" path="res://Player_2.gd" id="7_a860w"]
+[ext_resource type="Texture2D" uid="uid://dovfso5phqdym" path="res://Grid/Grid_PNGS/grass_tile_128.png" id="2_mdl1i"]
+[ext_resource type="Texture2D" uid="uid://dhmdmyblc0hiv" path="res://Grid/Grid_PNGS/highlight_tile_128.png" id="3_kvaqq"]
+[ext_resource type="Texture2D" uid="uid://b6u7v8kppvowq" path="res://Grid/Grid_PNGS/guy.png" id="4_nx0r3"]
+[ext_resource type="Script" uid="uid://1s4l1fgu6q3c" path="res://Player_2.gd" id="7_a860w"]
 [ext_resource type="PackedScene" uid="uid://c3kvbud4t1din" path="res://player.tscn" id="7_gmv2k"]
 [ext_resource type="PackedScene" uid="uid://douv3iraewxih" path="res://Card/Card_Sence/example_card.tscn" id="8_8g3qx"]
 [ext_resource type="Script" uid="uid://c2b8p2fu5bb7x" path="res://Card/example_card.gd" id="8_uknxh"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://bcnedb7tp1fjo" path="res://Card/Card_Sence/Player_2_card_atk.tscn" id="10_buktn"]
 [ext_resource type="PackedScene" uid="uid://olfn4mcln5m" path="res://Card/Card_Sence/Player_2_example_card.tscn" id="11_5775p"]
 [ext_resource type="Script" uid="uid://chm125hv2xprb" path="res://Card/Player_2_example_card.gd" id="13_kvhnw"]
+[ext_resource type="PackedScene" uid="uid://1oy67kjbxwwp" path="res://Card/Card_Sence/test_card_Spawning_and_Movement.tscn" id="14_kvhnw"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_a860w"]
 resource_name = "Grass_tile"
@@ -75,3 +76,6 @@ scale = Vector2(0.6, 0.6)
 position = Vector2(127, 959)
 scale = Vector2(0.6, 0.6)
 script = ExtResource("13_kvhnw")
+
+[node name="Card" parent="." instance=ExtResource("14_kvhnw")]
+position = Vector2(73, 80)
