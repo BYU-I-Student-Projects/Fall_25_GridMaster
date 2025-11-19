@@ -12,7 +12,9 @@ var player_turn = 1
 var can_move = false
 var move_range = 0
 var valid_move_array = []
-var selected_tiles: Array = []
+var selected_object_tile: Vector2i = Vector2i(-1, -1)
+var allowed_object_ids: Array = []
+var selected_object_range: int = 0
 
 
 func _ready():
@@ -228,45 +230,44 @@ func move_object_at(tile: Vector2i, dX: int, dY: int) -> void:
 		print("Moved %s from %s to %s" % [entry["type"], tile, new_tile])
 
 func _input(event):
-	if event.is_action_pressed("LeftClick"):
-		var tile = get_relative_mouse_position()
-		if can_move:
-			if (tile == player1) or (tile == player2):
-				return
-			if not Dic.has(str(tile)):
-				return
-			if tile in valid_move_array:
-				erase_cell(3, player1)
-				player1 = tile
-				set_cell(3, player1, 2, Vector2i(0, 0), 0)
-				print("Player moved to ", player1)
-				for z in valid_move_array:
-					erase_cell(2, z)
+	if not event.is_action_pressed("LeftClick"):
+		return
+	var tile = get_relative_mouse_position()
+	if can_move:
+		if tile in valid_move_array:
+			erase_cell(3, player1)
+			player1 = tile
+			set_cell(3, player1, 2, Vector2i(0, 0), 0)
+			for z in valid_move_array: erase_cell(2, z)
+			valid_move_array.clear()
+			can_move = false
+		return
+	if allowed_object_ids.size() > 0:
+		if selected_object_tile == Vector2i(-1, -1):
+			if is_tile_selectable(tile, allowed_object_ids):
+				selected_object_tile = tile
 				valid_move_array.clear()
-				can_move = false
-			return
-		elif selected_tiles.size() > 0:
-			if tile in valid_move_array:
-				for origin in selected_tiles:
-					if objects.has(str(origin)):
-						move_object_at(origin, tile.x - origin.x, tile.y - origin.y)
-						break
+				get_range(tile, selected_object_range)
 				for z in valid_move_array:
-					erase_cell(2, z)
-				valid_move_array.clear()
-				selected_tiles.clear()
+					if verify_in_bounds(z) and not objects.has(str(z)):
+						set_cell(2, z, 1, Vector2(0, 0))
+				erase_cell(2, tile)
+		elif tile in valid_move_array:
+			move_object_at(selected_object_tile, tile.x - selected_object_tile.x, tile.y - selected_object_tile.y)
+			for z in valid_move_array: erase_cell(2, z)
+			valid_move_array.clear()
+			selected_object_tile = Vector2i(-1, -1)
+			allowed_object_ids.clear()
 
-func _on_object_move(objectIDs: Array, max_range: int) -> void:
+func _on_object_move(objectIDs: Array, move_pattern: int) -> void:
+	allowed_object_ids = objectIDs.duplicate()
+	selected_object_tile = Vector2i(-1, -1)
+	selected_object_range = move_pattern
 	valid_move_array.clear()
-	selected_tiles.clear()
 	for key in objects.keys():
 		var tile = Vector2i(key.split(",")[0].to_int(), key.split(",")[1].to_int())
-		if is_tile_selectable(tile, objectIDs):
-			selected_tiles.append(tile)
-			get_range(tile, max_range)
-	for z in valid_move_array:
-		if verify_in_bounds(z) and not objects.has(str(z)):
-			set_cell(2, z, 1, Vector2(0, 0))
+		if is_tile_selectable(tile, allowed_object_ids):
+			set_cell(2, tile, 1, Vector2(0, 0))
 
 func is_tile_selectable(tile: Vector2i, allowed_ids: Array) -> bool:
 	if tile == player1 and 1 in allowed_ids:
