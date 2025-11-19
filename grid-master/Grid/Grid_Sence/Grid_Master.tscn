@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://b1cdglo2aqkhe"]
+[gd_scene load_steps=21 format=3 uid="uid://b1cdglo2aqkhe"]
 
 [ext_resource type="Script" path="res://Main.gd" id="1_k7rd8"]
 [ext_resource type="Script" uid="uid://dnvkq8tek5vps" path="res://Grid/tile_map.gd" id="2_appru"]
@@ -13,6 +13,9 @@
 [ext_resource type="PackedScene" uid="uid://bcnedb7tp1fjo" path="res://Card/Card_Sence/Player_2_card_atk.tscn" id="10_buktn"]
 [ext_resource type="PackedScene" uid="uid://olfn4mcln5m" path="res://Card/Card_Sence/Player_2_example_card.tscn" id="11_5775p"]
 [ext_resource type="Script" path="res://Card/Player_2_example_card.gd" id="13_kvhnw"]
+[ext_resource type="PackedScene" uid="uid://kmlaehcrfdlq" path="res://Deck/Deck.tscn" id="14_aug3d"]
+[ext_resource type="Script" uid="uid://f5ia8fc75xfi" path="res://Deck/deck.gd" id="15_rh04y"]
+[ext_resource type="Texture2D" uid="uid://yynel0pip6sh" path="res://Card/Card_PNGS/temp basic card template.png" id="16_et11g"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_a860w"]
 resource_name = "Grass_tile"
@@ -56,22 +59,46 @@ script = ExtResource("2_appru")
 [node name="Player" parent="." instance=ExtResource("7_gmv2k")]
 
 [node name="Example Card (Heal)" parent="." instance=ExtResource("8_8g3qx")]
-position = Vector2(306, 957)
+position = Vector2(1906, 387)
 scale = Vector2(0.6, 0.6)
 script = ExtResource("8_uknxh")
 
 [node name="Example Card (Damage)" parent="." instance=ExtResource("9_ft85k")]
-position = Vector2(204.00002, 564)
-scale = Vector2(0.6, 0.6)
+position = Vector2(1963, 584)
+scale = Vector2(0.55, 0.55)
 
 [node name="Player_2" type="Node2D" parent="."]
 script = ExtResource("7_a860w")
 
 [node name="Player_2_atk_card" parent="." instance=ExtResource("10_buktn")]
-position = Vector2(-219, 957)
+position = Vector2(1867, 176)
 scale = Vector2(0.6, 0.6)
 
 [node name="Player_2_Healing_card" parent="." instance=ExtResource("11_5775p")]
-position = Vector2(127, 959)
+position = Vector2(2127, 376)
 scale = Vector2(0.6, 0.6)
 script = ExtResource("13_kvhnw")
+
+[node name="Deck" parent="." instance=ExtResource("14_aug3d")]
+position = Vector2(90, 1125)
+script = ExtResource("15_rh04y")
+
+[node name="Sprite2D" type="Sprite2D" parent="Deck"]
+position = Vector2(1980, -55)
+rotation = 3.1415927
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("16_et11g")
+
+[node name="UI_Layer" type="CanvasLayer" parent="Deck"]
+
+[node name="Bottom_Bar" type="HBoxContainer" parent="Deck/UI_Layer"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -279.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 4

@@ -98,11 +98,11 @@ func _on_player_move(playerID, dist):
 	can_move_1 = true
 	for z in valid_move_array:
 		if (z.x < 0) or (z.x > 2):
-			1 == 1 
+			pass
 		elif (z.y < 0) or (z.y > 5):
-			1 == 1 
+			pass 
 		elif (z == player1) or (z == player2):
-			1 == 1 
+			pass
 		else:
 			set_cell(2, z, 1, Vector2(0, 0)) 
 

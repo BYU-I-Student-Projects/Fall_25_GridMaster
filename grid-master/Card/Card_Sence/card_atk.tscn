@@ -7,7 +7,8 @@
 script = ExtResource("2_xyggs")
 
 [node name="Sprite2D" parent="." index="0"]
-position = Vector2(105.00003, 936)
+position = Vector2(0, 0)
+scale = Vector2(0.35, 0.35)
 
 [node name="Control" parent="." index="1"]
 offset_left = -422.0
@@ -16,23 +17,23 @@ offset_right = -382.0
 offset_bottom = 694.0
 
 [node name="CardMoveButton" parent="Control" index="0"]
-offset_left = 407.0
-offset_top = 378.0
-offset_right = 647.0
-offset_bottom = 419.0
+offset_left = 352.0
+offset_top = -605.0
+offset_right = 492.0
+offset_bottom = -574.0
 text = "Move: 1"
 
 [node name="CardActionButton" parent="Control" index="1"]
-offset_left = 406.0
-offset_top = 419.0
-offset_right = 647.0
-offset_bottom = 465.0
+offset_left = 341.0
+offset_top = -575.0
+offset_right = 502.0
+offset_bottom = -544.0
 text = "Damage Player 2 1o
 "
 
 [node name="CardResourceButton" parent="Control" index="2"]
-offset_left = 406.0
-offset_top = 465.0
-offset_right = 648.0
-offset_bottom = 510.0
+offset_left = 352.0
+offset_top = -543.0
+offset_right = 500.0
+offset_bottom = -512.0
 text = "Resource -2"
