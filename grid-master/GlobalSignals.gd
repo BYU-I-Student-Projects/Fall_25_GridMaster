@@ -9,6 +9,7 @@ signal free_move(objectID, dX, dY)
 
 signal move_at(X, Y, DX, DY)
 signal object_move(objectIDs, range)
+signal relative_spawn_object(object, ownership, move_pattern)
 signal spawn_object(object, ownership, X, Y)
 # Object should be used to create a specific object
 # Ownership 0 = Neutral, 1 = Player1, 2 = Player2

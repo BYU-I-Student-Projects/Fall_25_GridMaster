@@ -15,7 +15,7 @@ var valid_move_array = []
 var selected_object_tile: Vector2i = Vector2i(-1, -1)
 var allowed_object_ids: Array = []
 var selected_object_range: int = 0
-
+var current_object_spawn
 
 func _ready():
 	GlobalSignal.connect("player_move", _on_player_move)
@@ -24,6 +24,7 @@ func _ready():
 	GlobalSignal.connect("spawn_effect_zone", _on_spawn_effect_zone)
 	GlobalSignal.connect("move_at", _on_move_at)
 	GlobalSignal.connect("object_move", _on_object_move)
+	GlobalSignal.connect("relative_spawn_object", _on_relative_spawn_object)
 	
 	#sets grass grid
 	for x in GridSizeX:
@@ -32,12 +33,10 @@ func _ready():
 					"type" : "Grass"
 			}
 			set_cell(0, Vector2(x, y), 0, Vector2i(0,0), 0)
-			
 	#sets players
 	set_cell(3, player1, 2, Vector2i(0,0), 0)
 	set_cell(3, player2, 2, Vector2i(0,0), 0)
-			
-			
+
 func _process(_delta) :
 	var tile = get_relative_mouse_position()
 
@@ -104,13 +103,13 @@ func get_range(tile, move_pattern):
 func _on_player_move(playerID, dist):
 	if playerID != 1:
 		return
-	get_range(playerID, dist)
+	get_range(player1, dist)
 	can_move = true
 	for z in valid_move_array:
 		if (z == player1) or (z == player2):
 			pass
-		elif (verify_in_bounds(z)):
-			set_cell(2, z, 1, Vector2(0, 0)) 
+		elif (verify_in_bounds(z) and not objects.has(str(z))):
+			set_cell(2, z, 1, Vector2(0, 0))
 
 func verify_in_bounds(pos: Vector2i) -> bool:
 	return (pos.x >= 0 and pos.x <= 2) and (pos.y >= 0 and pos.y <= 5)
@@ -127,7 +126,6 @@ func _on_spawn_object(object_name: String, ownership: int, X: int, Y: int) -> vo
 		push_error("Tile %s already occupied by %s" % [tile, objects[str(tile)]["type"]])
 		return
 
-	# Use the registry instead of ClassDB
 	var script = Preload.object_registry.get(object_name)
 	if script == null:
 		push_error("Unknown object: %s" % object_name)
@@ -160,7 +158,6 @@ func _on_spawn_effect_zone(effect_name: String, X: int, Y: int, magnitude: int =
 	var instance = script.new()
 	if instance != null and instance is Object:
 		add_child(instance)
-
 		# Currently, multiple effects should be able to stack. If we don't want to keep this, we'll
 		# need to rework this chunk
 		if not effects.has(str(pos)):
@@ -235,6 +232,9 @@ func _input(event):
 	var tile = get_relative_mouse_position()
 	if can_move:
 		if tile in valid_move_array:
+			if objects.has(str(tile)):
+				push_error("Tile %s occupied by %s" % [tile, objects[str(tile)]["type"]])
+				return
 			erase_cell(3, player1)
 			player1 = tile
 			set_cell(3, player1, 2, Vector2i(0, 0), 0)
@@ -245,12 +245,14 @@ func _input(event):
 	if allowed_object_ids.size() > 0:
 		if selected_object_tile == Vector2i(-1, -1):
 			if is_tile_selectable(tile, allowed_object_ids):
-				selected_object_tile = tile
+				for z in valid_move_array:
+					erase_cell(2, z)
 				valid_move_array.clear()
+				selected_object_tile = tile
 				get_range(tile, selected_object_range)
 				for z in valid_move_array:
-					if verify_in_bounds(z) and not objects.has(str(z)):
-						set_cell(2, z, 1, Vector2(0, 0))
+					if verify_in_bounds(z) and not objects.has(str(z)) and z != player1 and z != player2:
+						set_cell(2, z, 1, Vector2i(0, 0))
 				erase_cell(2, tile)
 		elif tile in valid_move_array:
 			move_object_at(selected_object_tile, tile.x - selected_object_tile.x, tile.y - selected_object_tile.y)
@@ -258,6 +260,13 @@ func _input(event):
 			valid_move_array.clear()
 			selected_object_tile = Vector2i(-1, -1)
 			allowed_object_ids.clear()
+	elif current_object_spawn != "" and tile in valid_move_array:
+		_on_spawn_object(current_object_spawn, 0, tile.x, tile.y)
+		for z in valid_move_array: erase_cell(2, z)
+		valid_move_array.clear()
+		current_object_spawn = ""
+		return
+
 
 func _on_object_move(objectIDs: Array, move_pattern: int) -> void:
 	allowed_object_ids = objectIDs.duplicate()
@@ -267,7 +276,16 @@ func _on_object_move(objectIDs: Array, move_pattern: int) -> void:
 	for key in objects.keys():
 		var tile = Vector2i(key.split(",")[0].to_int(), key.split(",")[1].to_int())
 		if is_tile_selectable(tile, allowed_object_ids):
-			set_cell(2, tile, 1, Vector2(0, 0))
+			set_cell(2, tile, 1, Vector2i(0, 0))
+
+func _on_relative_spawn_object(objectID: String, playerID: int, move_pattern: int) -> void:
+	valid_move_array.clear()
+	current_object_spawn = objectID
+	if playerID == 1:
+		get_range(player1, move_pattern)
+		for tile in valid_move_array:
+			if verify_in_bounds(tile) and not objects.has(str(tile)) and tile != player1 and tile != player2:
+				set_cell(2, tile, 1, Vector2i(0,0))
 
 func is_tile_selectable(tile: Vector2i, allowed_ids: Array) -> bool:
 	if tile == player1 and 1 in allowed_ids:
@@ -287,4 +305,3 @@ func get_relative_mouse_position() -> Vector2i:
 	var local_pos = to_local(get_viewport().get_mouse_position())
 	local_pos /= scale
 	return Vector2i(int(local_pos.x / tile_set.tile_size.x * scale.x), int(local_pos.y / tile_set.tile_size.y * scale.y))
-	
