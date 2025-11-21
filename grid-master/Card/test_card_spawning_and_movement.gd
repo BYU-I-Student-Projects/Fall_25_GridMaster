@@ -11,4 +11,4 @@ func effect_two():
 
 # create attack zone
 func effect_three():
-	GlobalSignal.emit_signal("spawn_effect_zone", "damage_zone", 1, 1, 1)
+	GlobalSignal.emit_signal("relative_spawn_object", "damage_zone", 1, 1, 0, 2)

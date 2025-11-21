@@ -16,6 +16,8 @@ var selected_object_tile: Vector2i = Vector2i(-1, -1)
 var allowed_object_ids: Array = []
 var selected_object_range: int = 0
 var current_object_spawn
+var magnitude
+var duration
 
 func _ready():
 	GlobalSignal.connect("player_move", _on_player_move)
@@ -114,16 +116,15 @@ func _on_player_move(playerID, dist):
 func verify_in_bounds(pos: Vector2i) -> bool:
 	return (pos.x >= 0 and pos.x <= 2) and (pos.y >= 0 and pos.y <= 5)
 
-func _on_spawn_object(object_name: String, ownership: int, X: int, Y: int) -> void:
-	var tile = Vector2i(X, Y)
-	if not verify_in_bounds(tile):
-		push_error("Spawn position %s out of bounds" % tile)
+func _on_spawn_object(object_name: String, ownership: int, position: Vector2i) -> void:
+	if not verify_in_bounds(position):
+		push_error("Spawn position %s out of bounds" % position)
 		return
-	if tile == player1 or tile == player2:
-		push_error("Cannot spawn at player position %s" % tile)
+	if position == player1 or position == player2:
+		push_error("Cannot spawn at player position %s" % position)
 		return
-	if objects.has(str(tile)):
-		push_error("Tile %s already occupied by %s" % [tile, objects[str(tile)]["type"]])
+	if objects.has(str(position)):
+		push_error("Tile %s already occupied by %s" % [position, objects[str(position)]["type"]])
 		return
 
 	var script = Preload.object_registry.get(object_name)
@@ -135,7 +136,7 @@ func _on_spawn_object(object_name: String, ownership: int, X: int, Y: int) -> vo
 	instance.ownership = ownership
 	add_child(instance)
 
-	objects[str(tile)] = {
+	objects[str(position)] = {
 		"type": object_name,
 		"ownership": ownership,
 		"node": instance
@@ -144,12 +145,11 @@ func _on_spawn_object(object_name: String, ownership: int, X: int, Y: int) -> vo
 	if instance.tileID == -1:
 		push_error("No tile ID mapped for %s" % object_name)
 		return
-	set_cell(3, tile, instance.tileID, Vector2i(0,0), 0)
+	set_cell(3, position, instance.tileID, Vector2i(0,0), 0)
 
-func _on_spawn_effect_zone(effect_name: String, X: int, Y: int, magnitude: int = 0, duration: int = 2) -> void:
-	var pos = Vector2i(X, Y)
-	if not verify_in_bounds(pos):
-		push_error("Spawn position %s out of bounds" % pos)
+func _on_spawn_effect_zone(effect_name: String, position: Vector2i) -> void:
+	if not verify_in_bounds(position):
+		push_error("Spawn position %s out of bounds" % position)
 		return
 	var script = Preload.object_registry.get(effect_name)
 	if script == null:
@@ -160,9 +160,9 @@ func _on_spawn_effect_zone(effect_name: String, X: int, Y: int, magnitude: int =
 		add_child(instance)
 		# Currently, multiple effects should be able to stack. If we don't want to keep this, we'll
 		# need to rework this chunk
-		if not effects.has(str(pos)):
-			effects[str(pos)] = []
-		effects[str(pos)].append({
+		if not effects.has(str(position)):
+			effects[str(position)] = []
+		effects[str(position)].append({
 			"type": effect_name,
 			"magnitude": magnitude,
 			"node": instance,
@@ -170,7 +170,7 @@ func _on_spawn_effect_zone(effect_name: String, X: int, Y: int, magnitude: int =
 		})
 
 		if instance.tileID != -1:
-			set_cell(2, pos, instance.tileID, Vector2i(0,0), 0)
+			set_cell(2, position, instance.tileID, Vector2i(0,0), 0)
 
 func _external_move(playerID, x, y):
 	if playerID == 1:
@@ -260,11 +260,16 @@ func _input(event):
 			valid_move_array.clear()
 			selected_object_tile = Vector2i(-1, -1)
 			allowed_object_ids.clear()
-	elif current_object_spawn != "" and tile in valid_move_array:
-		_on_spawn_object(current_object_spawn, 0, tile.x, tile.y)
+	elif current_object_spawn != "" and tile in valid_move_array:				#Here///////////////
+		if (current_object_spawn == "wall"):
+			_on_spawn_object(current_object_spawn, 0, tile)
+		else:
+			(_on_spawn_effect_zone(current_object_spawn, tile))
 		for z in valid_move_array: erase_cell(2, z)
 		valid_move_array.clear()
 		current_object_spawn = ""
+		magnitude = 0
+		duration = 0
 		return
 
 
@@ -278,9 +283,11 @@ func _on_object_move(objectIDs: Array, move_pattern: int) -> void:
 		if is_tile_selectable(tile, allowed_object_ids):
 			set_cell(2, tile, 1, Vector2i(0, 0))
 
-func _on_relative_spawn_object(objectID: String, playerID: int, move_pattern: int) -> void:
+func _on_relative_spawn_object(objectID: String, playerID: int, move_pattern: int, damage: int = 0, time: int = 0) -> void:
 	valid_move_array.clear()
 	current_object_spawn = objectID
+	magnitude = damage
+	duration = time
 	if playerID == 1:
 		get_range(player1, move_pattern)
 		for tile in valid_move_array:
