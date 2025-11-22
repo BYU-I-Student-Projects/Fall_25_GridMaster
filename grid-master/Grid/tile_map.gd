@@ -147,7 +147,7 @@ func _on_spawn_object(object_name: String, ownership: int, position: Vector2i) -
 		return
 	set_cell(3, position, instance.tileID, Vector2i(0,0), 0)
 
-func _on_spawn_effect_zone(effect_name: String, position: Vector2i) -> void:
+func _on_spawn_effect_zone(effect_name: String, position: Vector2i, magnitude: int = 1, duration: int = 2) -> void:
 	if not verify_in_bounds(position):
 		push_error("Spawn position %s out of bounds" % position)
 		return
@@ -158,8 +158,6 @@ func _on_spawn_effect_zone(effect_name: String, position: Vector2i) -> void:
 	var instance = script.new()
 	if instance != null and instance is Object:
 		add_child(instance)
-		# Currently, multiple effects should be able to stack. If we don't want to keep this, we'll
-		# need to rework this chunk
 		if not effects.has(str(position)):
 			effects[str(position)] = []
 		effects[str(position)].append({
@@ -168,9 +166,8 @@ func _on_spawn_effect_zone(effect_name: String, position: Vector2i) -> void:
 			"node": instance,
 			"duration": duration
 		})
-
 		if instance.tileID != -1:
-			set_cell(2, position, instance.tileID, Vector2i(0,0), 0)
+			set_cell(4, position, instance.tileID, Vector2i(0,0), 0)
 
 func _external_move(playerID, x, y):
 	if playerID == 1:
@@ -264,7 +261,7 @@ func _input(event):
 		if (current_object_spawn == "wall"):
 			_on_spawn_object(current_object_spawn, 0, tile)
 		else:
-			(_on_spawn_effect_zone(current_object_spawn, tile))
+			_on_spawn_effect_zone(current_object_spawn, tile, magnitude, duration)
 		for z in valid_move_array: erase_cell(2, z)
 		valid_move_array.clear()
 		current_object_spawn = ""
