@@ -10,4 +10,8 @@ offset_bottom = 40.0
 
 [node name="lobby_controller" parent="." instance=ExtResource("1_ll2xe")]
 layout_mode = 1
+offset_left = 337.0
+offset_top = 669.0
+offset_right = 337.0
+offset_bottom = 669.0
 travel_to_scene = "res://Grid/Grid_Sence/Grid_Master.tscn"

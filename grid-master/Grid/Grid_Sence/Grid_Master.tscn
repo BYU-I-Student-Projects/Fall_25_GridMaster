@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://b1cdglo2aqkhe"]
+[gd_scene load_steps=19 format=3 uid="uid://b1cdglo2aqkhe"]
 
 [ext_resource type="Script" path="res://Main.gd" id="1_k7rd8"]
 [ext_resource type="Script" uid="uid://dnvkq8tek5vps" path="res://Grid/tile_map.gd" id="2_appru"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://bcnedb7tp1fjo" path="res://Card/Card_Sence/Player_2_card_atk.tscn" id="10_buktn"]
 [ext_resource type="PackedScene" uid="uid://olfn4mcln5m" path="res://Card/Card_Sence/Player_2_example_card.tscn" id="11_5775p"]
 [ext_resource type="Script" uid="uid://chm125hv2xprb" path="res://Card/Player_2_example_card.gd" id="13_kvhnw"]
+[ext_resource type="PackedScene" uid="uid://ct7hbufknkffx" path="res://addons/lan_multiplayer/scenes/world_controller.tscn" id="14_kvhnw"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_a860w"]
 resource_name = "Grass_tile"
@@ -74,3 +75,7 @@ scale = Vector2(0.6, 0.6)
 position = Vector2(127, 959)
 scale = Vector2(0.6, 0.6)
 script = ExtResource("13_kvhnw")
+
+[node name="world_controller" parent="." instance=ExtResource("14_kvhnw")]
+player_scene = ExtResource("7_gmv2k")
+spawn_path = NodePath("../TileMap")
