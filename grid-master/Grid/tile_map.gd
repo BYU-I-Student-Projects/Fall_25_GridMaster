@@ -37,7 +37,7 @@ func _ready():
 			set_cell(0, Vector2(x, y), 0, Vector2i(0,0), 0)
 	#sets players
 	set_cell(3, player1, 2, Vector2i(0,0), 0)
-	set_cell(3, player2, 2, Vector2i(0,0), 0)
+	set_cell(3, player2, 3, Vector2i(0,0), 0)
 
 func _process(_delta) :
 	var tile = get_relative_mouse_position()
@@ -189,7 +189,7 @@ func _external_move(playerID, x, y):
 			return
 		erase_cell(3, player2)
 		player2 += Vector2i(x, y)
-		set_cell(3, player2, 2, Vector2i(0, 0), 0)
+		set_cell(3, player2, 3, Vector2i(0, 0), 0)
 		print("Player moved to ", player2)
 
 func _on_move_at(x: int, y: int, dX: int, dY: int) -> void:
