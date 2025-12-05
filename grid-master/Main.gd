@@ -12,10 +12,6 @@ const CARD_WIDTH = 160
 func _ready() -> void:
 	card_registry = $Deck.load_card_classes(CARDS_DIRECTORY)
 	
-	GlobalSignal.connect("player_add_value", self._on_card_used)
-	GlobalSignal.connect("player_move", self._on_card_used)
-	GlobalSignal.connect("free_move", self._on_card_used)
-	
 	
 	print("Loaded card registry keys: ", card_registry.keys())
 	draw_starting_hand(3)
@@ -56,11 +52,4 @@ func arrange_cards_manually():
 		current_x_offset += CARD_WIDTH + CARD_SPACING
 
 func _on_card_used(card_node: Node2D):
-
-	discard_pile.append(card_node.name)
-	
-	card_node.queue_free()
-	
-	arrange_cards_manually()
-	
-	print("Current discard pile size: ", discard_pile.size())
+	pass
