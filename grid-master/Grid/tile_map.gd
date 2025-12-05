@@ -104,7 +104,8 @@ func _on_player_move(playerID, dist):
 		elif (z == player1) or (z == player2):
 			pass
 		else:
-			set_cell(2, z, 1, Vector2(0, 0)) 
+			set_cell(2, z, 1, Vector2(0, 0))
+
 
 func _external_move(playerID, x, y):
 	if playerID == 1:
@@ -118,6 +119,7 @@ func _external_move(playerID, x, y):
 		player1 += Vector2i(x, y)
 		set_cell(3, player1, 2, Vector2i(0, 0), 0)
 		print("Player moved to ", player1)
+		print("card used")
 		for z in valid_move_array:
 			erase_cell(2, z) 
 
@@ -132,6 +134,7 @@ func _external_move(playerID, x, y):
 		player2 += Vector2i(x, y)
 		set_cell(3, player2, 2, Vector2i(0, 0), 0)
 		print("Player moved to ", player2)
+		print("card used")
 	
 	
 func _input(event):
@@ -151,6 +154,7 @@ func _input(event):
 			player1 = tile
 			set_cell(3, player1, 2, Vector2i(0, 0), 0)
 			print("Player moved to ", player1)
+			print("card used")
 			for z in valid_move_array:
 				erase_cell(2, z) 
 			valid_move_array = []
