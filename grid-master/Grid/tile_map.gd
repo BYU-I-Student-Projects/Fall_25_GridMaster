@@ -121,7 +121,7 @@ func _external_move(playerID, x, y):
 		print("Player moved to ", player1)
 		print("card used")
 		for z in valid_move_array:
-			erase_cell(2, z) 
+			erase_cell(2, z)
 
 	if playerID == 2:
 		if ((player2 + Vector2i(x, y)).x < 0) or ((player2 + Vector2i(x, y)).x > 2):
@@ -135,8 +135,7 @@ func _external_move(playerID, x, y):
 		set_cell(3, player2, 2, Vector2i(0, 0), 0)
 		print("Player moved to ", player2)
 		print("card used")
-	
-	
+
 func _input(event):
 	if not can_move_1 and not can_move_2:
 		return
@@ -159,7 +158,7 @@ func _input(event):
 				erase_cell(2, z) 
 			valid_move_array = []
 			can_move_1 = false
-		
+		GlobalSignal.emit_signal("card_function_finished")
 
 func get_relative_mouse_position() -> Vector2i:
 	var local_pos = to_local(get_viewport().get_mouse_position())

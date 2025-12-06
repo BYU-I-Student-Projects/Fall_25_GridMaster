@@ -18,6 +18,7 @@ func _on_player_add_value(playerID, valueID, value):
 		elif valueID == 3:
 			resource_count += value
 			print("Player 2 resource changed by %d → Total: %d" % [value, resource_count])
+		GlobalSignal.emit_signal("card_function_finished")
 
 func apply_damage(amount: int):
 	health = clamp(health - amount, 0, max_health)
