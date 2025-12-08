@@ -7,33 +7,70 @@
 script = ExtResource("1_c1x3f")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(527, 282)
-scale = Vector2(0.597778, 0.597778)
+position = Vector2(80, 142)
+scale = Vector2(0.35, 0.35)
 texture = ExtResource("2_axjk8")
 
 [node name="Control" type="Control" parent="."]
+custom_minimum_size = Vector2(160, 284)
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 160.0
+offset_bottom = 284.0
+size_flags_horizontal = 0
+size_flags_vertical = 3
+metadata/_edit_use_anchors_ = true
 
 [node name="CardMoveButton" type="Button" parent="Control"]
-layout_mode = 0
-offset_left = 404.0
-offset_top = 376.0
-offset_right = 647.0
-offset_bottom = 418.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -70.0
+offset_top = 53.0
+offset_right = 132.0
+offset_bottom = 88.0
+scale = Vector2(0.7, 0.7)
+metadata/_edit_use_anchors_ = true
 
 [node name="CardActionButton" type="Button" parent="Control"]
-layout_mode = 0
-offset_left = 407.0
-offset_top = 418.0
-offset_right = 649.0
-offset_bottom = 466.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.4999998
+anchor_right = 0.5
+anchor_bottom = 0.4999998
+offset_left = -70.0
+offset_top = 83.00006
+offset_right = 132.0
+offset_bottom = 113.00006
+scale = Vector2(0.7, 0.7)
+metadata/_edit_use_anchors_ = true
 
 [node name="CardResourceButton" type="Button" parent="Control"]
-layout_mode = 0
-offset_left = 407.0
-offset_top = 465.0
-offset_right = 648.0
-offset_bottom = 510.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -70.0
+offset_top = 108.0
+offset_right = 132.0
+offset_bottom = 143.0
+scale = Vector2(0.7, 0.7)
+metadata/_edit_use_anchors_ = true
+
+[node name="CardName" type="Label" parent="."]
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = -69.0
+offset_top = -134.0
+offset_right = 11.0
+offset_bottom = -111.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+metadata/_edit_use_anchors_ = true

@@ -1,12 +1,10 @@
-[gd_scene load_steps=24 format=3 uid="uid://b1cdglo2aqkhe"]
+[gd_scene load_steps=28 format=3 uid="uid://b1cdglo2aqkhe"]
 
+[ext_resource type="Script" path="res://Main.gd" id="1_k7rd8"]
 [ext_resource type="Script" uid="uid://dnvkq8tek5vps" path="res://Grid/tile_map.gd" id="2_appru"]
 [ext_resource type="Texture2D" uid="uid://dovfso5phqdym" path="res://Grid/Grid_PNGS/grass_tile_128.png" id="2_mdl1i"]
-[ext_resource type="Texture2D" uid="uid://ck7cm81y84mb1" path="res://Grid/Grid_PNGS/wall stand-in.png" id="3_aug3d"]
 [ext_resource type="Texture2D" uid="uid://dhmdmyblc0hiv" path="res://Grid/Grid_PNGS/highlight_tile_128.png" id="3_kvaqq"]
 [ext_resource type="Texture2D" uid="uid://b6u7v8kppvowq" path="res://Grid/Grid_PNGS/guy.png" id="4_nx0r3"]
-[ext_resource type="Texture2D" uid="uid://bh87fx6cl8ord" path="res://Grid/Grid_PNGS/guy 2.png" id="5_h27mv"]
-[ext_resource type="Texture2D" uid="uid://dq2vntme7q0fw" path="res://Grid/Grid_PNGS/RGB AoE stand-in.png" id="5_rh04y"]
 [ext_resource type="Script" uid="uid://1s4l1fgu6q3c" path="res://Player_2.gd" id="7_a860w"]
 [ext_resource type="PackedScene" uid="uid://c3kvbud4t1din" path="res://player.tscn" id="7_gmv2k"]
 [ext_resource type="PackedScene" uid="uid://douv3iraewxih" path="res://Card/Card_Sence/example_card.tscn" id="8_8g3qx"]
@@ -14,8 +12,11 @@
 [ext_resource type="PackedScene" uid="uid://8qmdc2sgcg5g" path="res://Card/Card_Sence/card_atk.tscn" id="9_ft85k"]
 [ext_resource type="PackedScene" uid="uid://bcnedb7tp1fjo" path="res://Card/Card_Sence/Player_2_card_atk.tscn" id="10_buktn"]
 [ext_resource type="PackedScene" uid="uid://olfn4mcln5m" path="res://Card/Card_Sence/Player_2_example_card.tscn" id="11_5775p"]
-[ext_resource type="Script" uid="uid://chm125hv2xprb" path="res://Card/Player_2_example_card.gd" id="13_kvhnw"]
-[ext_resource type="PackedScene" uid="uid://1oy67kjbxwwp" path="res://Card/Card_Sence/test_card_Spawning_and_Movement.tscn" id="14_kvhnw"]
+[ext_resource type="Script" path="res://Card/Player_2_example_card.gd" id="13_kvhnw"]
+[ext_resource type="PackedScene" uid="uid://kmlaehcrfdlq" path="res://Deck/Deck.tscn" id="14_aug3d"]
+[ext_resource type="Script" uid="uid://f5ia8fc75xfi" path="res://Deck/deck.gd" id="15_rh04y"]
+[ext_resource type="Texture2D" uid="uid://yynel0pip6sh" path="res://Card/Card_PNGS/temp basic card template.png" id="16_et11g"]
+[ext_resource type="Texture2D" uid="uid://cwq57skks8k2v" path="res://Card/Card_PNGS/deck.png" id="17_h27mv"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_a860w"]
 resource_name = "Grass_tile"
@@ -28,24 +29,10 @@ texture = ExtResource("3_kvaqq")
 texture_region_size = Vector2i(128, 128)
 0:0/0 = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_h27mv"]
-texture = ExtResource("3_aug3d")
-texture_region_size = Vector2i(128, 128)
-0:0/0 = 0
-
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vdqkj"]
 resource_name = "Player"
 texture = ExtResource("4_nx0r3")
 texture_region_size = Vector2i(64, 64)
-0:0/0 = 0
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bkehc"]
-texture = ExtResource("5_h27mv")
-texture_region_size = Vector2i(64, 64)
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_et11g"]
-texture = ExtResource("5_rh04y")
-texture_region_size = Vector2i(128, 128)
 0:0/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_3pmb0"]
@@ -53,11 +40,93 @@ tile_size = Vector2i(128, 128)
 sources/0 = SubResource("TileSetAtlasSource_a860w")
 sources/1 = SubResource("TileSetAtlasSource_q0a1r")
 sources/2 = SubResource("TileSetAtlasSource_vdqkj")
-sources/4 = SubResource("TileSetAtlasSource_et11g")
-sources/10 = SubResource("TileSetAtlasSource_h27mv")
-sources/3 = SubResource("TileSetAtlasSource_bkehc")
+
+[sub_resource type="FontFile" id="FontFile_h27mv"]
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/10/0/ascent = 0.0
+cache/0/10/0/descent = 0.0
+cache/0/10/0/underline_position = 0.0
+cache/0/10/0/underline_thickness = 0.0
+cache/0/10/0/scale = 1.0
+cache/0/50/0/ascent = 0.0
+cache/0/50/0/descent = 0.0
+cache/0/50/0/underline_position = 0.0
+cache/0/50/0/underline_thickness = 0.0
+cache/0/50/0/scale = 1.0
+cache/0/100/0/ascent = 0.0
+cache/0/100/0/descent = 0.0
+cache/0/100/0/underline_position = 0.0
+cache/0/100/0/underline_thickness = 0.0
+cache/0/100/0/scale = 1.0
+cache/0/150/0/ascent = 0.0
+cache/0/150/0/descent = 0.0
+cache/0/150/0/underline_position = 0.0
+cache/0/150/0/underline_thickness = 0.0
+cache/0/150/0/scale = 1.0
+cache/0/200/0/ascent = 0.0
+cache/0/200/0/descent = 0.0
+cache/0/200/0/underline_position = 0.0
+cache/0/200/0/underline_thickness = 0.0
+cache/0/200/0/scale = 1.0
+cache/0/300/0/ascent = 0.0
+cache/0/300/0/descent = 0.0
+cache/0/300/0/underline_position = 0.0
+cache/0/300/0/underline_thickness = 0.0
+cache/0/300/0/scale = 1.0
+cache/0/500/0/ascent = 0.0
+cache/0/500/0/descent = 0.0
+cache/0/500/0/underline_position = 0.0
+cache/0/500/0/underline_thickness = 0.0
+cache/0/500/0/scale = 1.0
+cache/0/400/0/ascent = 0.0
+cache/0/400/0/descent = 0.0
+cache/0/400/0/underline_position = 0.0
+cache/0/400/0/underline_thickness = 0.0
+cache/0/400/0/scale = 1.0
+
+[sub_resource type="Theme" id="Theme_et11g"]
+default_font = SubResource("FontFile_h27mv")
+default_font_size = 10
+
+[sub_resource type="FontFile" id="FontFile_bkehc"]
+cache/0/300/0/ascent = 0.0
+cache/0/300/0/descent = 0.0
+cache/0/300/0/underline_position = 0.0
+cache/0/300/0/underline_thickness = 0.0
+cache/0/300/0/scale = 1.0
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_h4vx0"]
+font = SubResource("FontFile_bkehc")
+font_size = 300
+
+[sub_resource type="FontFile" id="FontFile_en3qa"]
+cache/0/300/0/ascent = 0.0
+cache/0/300/0/descent = 0.0
+cache/0/300/0/underline_position = 0.0
+cache/0/300/0/underline_thickness = 0.0
+cache/0/300/0/scale = 1.0
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_kajt0"]
+font = SubResource("FontFile_en3qa")
+font_size = 300
+outline_color = Color(0, 0, 0, 1)
 
 [node name="Game" type="Node"]
+script = ExtResource("1_k7rd8")
 
 [node name="TileMap" type="TileMap" parent="."]
 position = Vector2(132, 55)
@@ -66,35 +135,92 @@ tile_set = SubResource("TileSet_3pmb0")
 format = 2
 layer_0/name = "Layer3"
 layer_1/name = "Layer2"
-layer_2/name = "Layer4"
-layer_3/name = "Layer1"
+layer_2/name = "Layer1"
+layer_2/y_sort_enabled = true
+layer_3/name = "Layer0"
 layer_3/y_sort_enabled = true
-layer_4/name = "Layer0"
-layer_4/y_sort_enabled = true
 script = ExtResource("2_appru")
 
 [node name="Player" parent="." instance=ExtResource("7_gmv2k")]
 
 [node name="Example Card (Heal)" parent="." instance=ExtResource("8_8g3qx")]
-position = Vector2(306, 957)
+position = Vector2(1906, 387)
 scale = Vector2(0.6, 0.6)
 script = ExtResource("8_uknxh")
 
 [node name="Example Card (Damage)" parent="." instance=ExtResource("9_ft85k")]
-position = Vector2(204.00002, 564)
-scale = Vector2(0.6, 0.6)
+position = Vector2(1963, 584)
+scale = Vector2(0.55, 0.55)
 
 [node name="Player_2" type="Node2D" parent="."]
 script = ExtResource("7_a860w")
 
 [node name="Player_2_atk_card" parent="." instance=ExtResource("10_buktn")]
-position = Vector2(-219, 957)
+position = Vector2(1867, 176)
 scale = Vector2(0.6, 0.6)
 
 [node name="Player_2_Healing_card" parent="." instance=ExtResource("11_5775p")]
-position = Vector2(127, 959)
+position = Vector2(2127, 376)
 scale = Vector2(0.6, 0.6)
 script = ExtResource("13_kvhnw")
 
-[node name="Card" parent="." instance=ExtResource("14_kvhnw")]
-position = Vector2(73, 80)
+[node name="Deck" parent="." instance=ExtResource("14_aug3d")]
+position = Vector2(90, 1125)
+script = ExtResource("15_rh04y")
+
+[node name="Sprite2D" type="Sprite2D" parent="Deck"]
+position = Vector2(1980, -55)
+rotation = 3.1415927
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("16_et11g")
+
+[node name="UI_Layer" type="CanvasLayer" parent="Deck"]
+
+[node name="Bottom_Bar" type="HBoxContainer" parent="Deck/UI_Layer"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -290.0
+offset_right = -170.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 4
+
+[node name="Discard" type="Sprite2D" parent="Deck/UI_Layer"]
+position = Vector2(620.85596, 1204.274)
+rotation = 1.5707964
+scale = Vector2(0.061196104, 0.061855968)
+texture = ExtResource("17_h27mv")
+
+[node name="Label" type="Label" parent="Deck/UI_Layer/Discard"]
+offset_left = -584.96216
+offset_top = 935.3331
+offset_right = 1200.7605
+offset_bottom = 1395.1808
+rotation = -1.5707964
+theme = SubResource("Theme_et11g")
+text = "Discard"
+label_settings = SubResource("LabelSettings_h4vx0")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Draw Pile" type="Sprite2D" parent="Deck/UI_Layer"]
+position = Vector2(620.85596, 1078.274)
+rotation = 1.5707964
+scale = Vector2(0.061196104, 0.061855968)
+texture = ExtResource("17_h27mv")
+
+[node name="Label" type="Label" parent="Deck/UI_Layer/Draw Pile"]
+offset_left = -576.41034
+offset_top = 935.33344
+offset_right = 1201.5037
+offset_bottom = 1481.3335
+rotation = -1.5707964
+text = "Draw Pile"
+label_settings = SubResource("LabelSettings_kajt0")
+horizontal_alignment = 1
+vertical_alignment = 1
