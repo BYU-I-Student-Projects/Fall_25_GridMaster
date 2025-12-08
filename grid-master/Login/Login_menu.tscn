@@ -1,0 +1,43 @@
+[gd_scene load_steps=2 format=3 uid="uid://b001ovlddb8s7"]
+
+[ext_resource type="Script" uid="uid://dgq770hyjcb0p" path="res://Login/login_menu.gd" id="1_ib00y"]
+
+[node name="Login" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_ib00y")
+
+[node name="Username" type="TextEdit" parent="."]
+custom_minimum_size = Vector2(200, 40)
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+placeholder_text = "Username"
+
+[node name="Password" type="TextEdit" parent="."]
+custom_minimum_size = Vector2(200, 40)
+layout_mode = 0
+offset_top = 41.0
+offset_right = 200.0
+offset_bottom = 81.0
+placeholder_text = "Password"
+
+[node name="Login" type="Button" parent="."]
+custom_minimum_size = Vector2(200, 40)
+layout_mode = 0
+offset_top = 80.0
+offset_right = 200.0
+offset_bottom = 120.0
+text = "Create
+"
+
+[node name="google" type="Button" parent="."]
+custom_minimum_size = Vector2(200, 40)
+layout_mode = 0
+offset_top = 118.0
+offset_right = 200.0
+offset_bottom = 158.0
+text = "Google sign in"
+
+[connection signal="button_down" from="Login" to="." method="_on_login_button_down"]
+[connection signal="pressed" from="google" to="." method="_on_google_pressed"]
