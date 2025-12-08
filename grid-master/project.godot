@@ -11,19 +11,24 @@ config_version=5
 [application]
 
 config/name="GridMaster"
-run/main_scene="uid://b1cdglo2aqkhe"
+run/main_scene="uid://cax2e4d0b0s00"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
 
 GlobalSignal="*res://GlobalSignals.gd"
+Preload="*res://preload.gd"
 
 [display]
 
 window/size/viewport_width=720
 window/size/viewport_height=1280
 window/stretch/mode="viewport"
+
+[dotnet]
+
+project/assembly_name="GridMaster"
 
 [input]
 

@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://1oy67kjbxwwp"]
+
+[ext_resource type="PackedScene" uid="uid://mmukdh7uayme" path="res://Card/Card_Sence/card.tscn" id="1_cy0hl"]
+[ext_resource type="Script" uid="uid://c6fhuhl02e1j5" path="res://Card/test_card_spawning_and_movement.gd" id="2_gldnu"]
+
+[node name="Card" instance=ExtResource("1_cy0hl")]
+script = ExtResource("2_gldnu")
+
+[node name="CardMoveButton" parent="Control" index="0"]
+text = "TEST Spawn Wall"
+
+[node name="CardActionButton" parent="Control" index="1"]
+text = "TEST Move Wall"
+
+[node name="CardResourceButton" parent="Control" index="2"]
+text = "TEST Create Attack"

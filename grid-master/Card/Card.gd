@@ -1,6 +1,7 @@
-# CardBase.gd
 class_name Card
 extends Node2D
+
+var card_id: String = ""
 
 @export_node_path var btn1_path: NodePath = "Control/CardMoveButton"
 @export_node_path var btn2_path: NodePath = "Control/CardActionButton"
@@ -12,26 +13,30 @@ func _ready() -> void:
 	var btn3 = get_node(btn3_path) as Button
 
 	# Connect signals to instance methods
-	btn1.pressed.connect(_on_button_action_1)
-	btn2.pressed.connect(_on_button_action_2)
-	btn3.pressed.connect(_on_button_action_3)
+	if btn1: btn1.pressed.connect(_on_button_action_1)
+	if btn2: btn2.pressed.connect(_on_button_action_2)
+	if btn3: btn3.pressed.connect(_on_button_action_3)
 
-# Default handlers that subclasses can override
 func _on_button_action_1() -> void:
 	effect_one()
+	await GlobalSignal.card_function_finished
+	GlobalSignal.emit_signal("card_effect_finished", self)
 
 func _on_button_action_2() -> void:
 	effect_two()
+	await GlobalSignal.card_function_finished
+	GlobalSignal.emit_signal("card_effect_finished", self)
 
 func _on_button_action_3() -> void:
 	effect_three()
+	await GlobalSignal.card_function_finished
+	GlobalSignal.emit_signal("card_effect_finished", self)
 
-# "Virtual" action methods intended to be overridden
-func effect_one() -> void:
+func effect_one():
 	pass
 
-func effect_two() -> void:
+func effect_two():
 	pass
 
-func effect_three() -> void:
+func effect_three():
 	pass
