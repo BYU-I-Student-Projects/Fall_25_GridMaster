@@ -105,7 +105,7 @@ func _check_emulating() -> void:
 func _load_config() -> void:
 	if not (_config.apiKey != "" and _config.authDomain != ""):
 		var env = ConfigFile.new()
-		var err = env.load("res://addons/godot-firebase/.env")
+		var err = env.load("res://addons/godot-firebase/config.env")
 		if err == OK:
 			for key in _config.keys():
 				var config_value = _config[key]
