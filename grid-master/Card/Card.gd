@@ -9,7 +9,6 @@ var card_id: String = ""
 @export_node_path var btn3_path: NodePath = "Control/CardResourceButton"
 
 func _ready() -> void:
-	GlobalSignal.connect("card_effect_finished", _test)
 	var btn1 = get_node(btn1_path) as Button
 	var btn2 = get_node(btn2_path) as Button
 	var btn3 = get_node(btn3_path) as Button
@@ -42,7 +41,3 @@ func effect_two():
 
 func effect_three():
 	pass
-
-func _test(card):
-	if card == self:
-		print("sent")

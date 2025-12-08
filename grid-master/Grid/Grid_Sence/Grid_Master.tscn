@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://b1cdglo2aqkhe"]
+[gd_scene load_steps=28 format=3 uid="uid://b1cdglo2aqkhe"]
 
 [ext_resource type="Script" path="res://Main.gd" id="1_k7rd8"]
 [ext_resource type="Script" uid="uid://dnvkq8tek5vps" path="res://Grid/tile_map.gd" id="2_appru"]
@@ -12,7 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://8qmdc2sgcg5g" path="res://Card/Card_Sence/card_atk.tscn" id="9_ft85k"]
 [ext_resource type="PackedScene" uid="uid://bcnedb7tp1fjo" path="res://Card/Card_Sence/Player_2_card_atk.tscn" id="10_buktn"]
 [ext_resource type="PackedScene" uid="uid://olfn4mcln5m" path="res://Card/Card_Sence/Player_2_example_card.tscn" id="11_5775p"]
-[ext_resource type="Script" uid="uid://chm125hv2xprb" path="res://Card/Player_2_example_card.gd" id="13_kvhnw"]
+[ext_resource type="Script" path="res://Card/Player_2_example_card.gd" id="13_kvhnw"]
 [ext_resource type="PackedScene" uid="uid://kmlaehcrfdlq" path="res://Deck/Deck.tscn" id="14_aug3d"]
 [ext_resource type="Script" uid="uid://f5ia8fc75xfi" path="res://Deck/deck.gd" id="15_rh04y"]
 [ext_resource type="Texture2D" uid="uid://yynel0pip6sh" path="res://Card/Card_PNGS/temp basic card template.png" id="16_et11g"]
@@ -40,6 +40,90 @@ tile_size = Vector2i(128, 128)
 sources/0 = SubResource("TileSetAtlasSource_a860w")
 sources/1 = SubResource("TileSetAtlasSource_q0a1r")
 sources/2 = SubResource("TileSetAtlasSource_vdqkj")
+
+[sub_resource type="FontFile" id="FontFile_h27mv"]
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+cache/0/10/0/ascent = 0.0
+cache/0/10/0/descent = 0.0
+cache/0/10/0/underline_position = 0.0
+cache/0/10/0/underline_thickness = 0.0
+cache/0/10/0/scale = 1.0
+cache/0/50/0/ascent = 0.0
+cache/0/50/0/descent = 0.0
+cache/0/50/0/underline_position = 0.0
+cache/0/50/0/underline_thickness = 0.0
+cache/0/50/0/scale = 1.0
+cache/0/100/0/ascent = 0.0
+cache/0/100/0/descent = 0.0
+cache/0/100/0/underline_position = 0.0
+cache/0/100/0/underline_thickness = 0.0
+cache/0/100/0/scale = 1.0
+cache/0/150/0/ascent = 0.0
+cache/0/150/0/descent = 0.0
+cache/0/150/0/underline_position = 0.0
+cache/0/150/0/underline_thickness = 0.0
+cache/0/150/0/scale = 1.0
+cache/0/200/0/ascent = 0.0
+cache/0/200/0/descent = 0.0
+cache/0/200/0/underline_position = 0.0
+cache/0/200/0/underline_thickness = 0.0
+cache/0/200/0/scale = 1.0
+cache/0/300/0/ascent = 0.0
+cache/0/300/0/descent = 0.0
+cache/0/300/0/underline_position = 0.0
+cache/0/300/0/underline_thickness = 0.0
+cache/0/300/0/scale = 1.0
+cache/0/500/0/ascent = 0.0
+cache/0/500/0/descent = 0.0
+cache/0/500/0/underline_position = 0.0
+cache/0/500/0/underline_thickness = 0.0
+cache/0/500/0/scale = 1.0
+cache/0/400/0/ascent = 0.0
+cache/0/400/0/descent = 0.0
+cache/0/400/0/underline_position = 0.0
+cache/0/400/0/underline_thickness = 0.0
+cache/0/400/0/scale = 1.0
+
+[sub_resource type="Theme" id="Theme_et11g"]
+default_font = SubResource("FontFile_h27mv")
+default_font_size = 10
+
+[sub_resource type="FontFile" id="FontFile_bkehc"]
+cache/0/300/0/ascent = 0.0
+cache/0/300/0/descent = 0.0
+cache/0/300/0/underline_position = 0.0
+cache/0/300/0/underline_thickness = 0.0
+cache/0/300/0/scale = 1.0
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_h4vx0"]
+font = SubResource("FontFile_bkehc")
+font_size = 300
+
+[sub_resource type="FontFile" id="FontFile_en3qa"]
+cache/0/300/0/ascent = 0.0
+cache/0/300/0/descent = 0.0
+cache/0/300/0/underline_position = 0.0
+cache/0/300/0/underline_thickness = 0.0
+cache/0/300/0/scale = 1.0
+cache/0/16/0/ascent = 0.0
+cache/0/16/0/descent = 0.0
+cache/0/16/0/underline_position = 0.0
+cache/0/16/0/underline_thickness = 0.0
+cache/0/16/0/scale = 1.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_kajt0"]
+font = SubResource("FontFile_en3qa")
+font_size = 300
+outline_color = Color(0, 0, 0, 1)
 
 [node name="Game" type="Node"]
 script = ExtResource("1_k7rd8")
@@ -106,28 +190,37 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 4
 
-[node name="Deck" type="Sprite2D" parent="Deck/UI_Layer"]
-position = Vector2(620.85596, 1078.274)
-rotation = 1.5707964
-scale = Vector2(0.061196104, 0.061855968)
-texture = ExtResource("17_h27mv")
-
-[node name="Label" type="Label" parent="Deck/UI_Layer/Deck"]
-offset_left = -543.7286
-offset_top = -2.3286772
-offset_right = -101.92975
-offset_bottom = 251.70564
-text = "Deck"
-
-[node name="Deck2" type="Sprite2D" parent="Deck/UI_Layer"]
+[node name="Discard" type="Sprite2D" parent="Deck/UI_Layer"]
 position = Vector2(620.85596, 1204.274)
 rotation = 1.5707964
 scale = Vector2(0.061196104, 0.061855968)
 texture = ExtResource("17_h27mv")
 
-[node name="Label" type="Label" parent="Deck/UI_Layer/Deck2"]
-offset_left = -445.68274
-offset_top = -244.8274
-offset_right = -74.17297
-offset_bottom = 297.14722
+[node name="Label" type="Label" parent="Deck/UI_Layer/Discard"]
+offset_left = -584.96216
+offset_top = 935.3331
+offset_right = 1200.7605
+offset_bottom = 1395.1808
+rotation = -1.5707964
+theme = SubResource("Theme_et11g")
 text = "Discard"
+label_settings = SubResource("LabelSettings_h4vx0")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Draw Pile" type="Sprite2D" parent="Deck/UI_Layer"]
+position = Vector2(620.85596, 1078.274)
+rotation = 1.5707964
+scale = Vector2(0.061196104, 0.061855968)
+texture = ExtResource("17_h27mv")
+
+[node name="Label" type="Label" parent="Deck/UI_Layer/Draw Pile"]
+offset_left = -576.41034
+offset_top = 935.33344
+offset_right = 1201.5037
+offset_bottom = 1481.3335
+rotation = -1.5707964
+text = "Draw Pile"
+label_settings = SubResource("LabelSettings_kajt0")
+horizontal_alignment = 1
+vertical_alignment = 1

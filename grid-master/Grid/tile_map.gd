@@ -16,6 +16,7 @@ var valid_move_array = []
 func _ready():
 	GlobalSignal.connect("player_move", _on_player_move)
 	GlobalSignal.connect("free_move", _external_move)
+	GlobalSignal.connect("card_effect_finished", card_used)
 	
 	#sets grass grid
 	for x in GridSizeX:
@@ -119,7 +120,6 @@ func _external_move(playerID, x, y):
 		player1 += Vector2i(x, y)
 		set_cell(3, player1, 2, Vector2i(0, 0), 0)
 		print("Player moved to ", player1)
-		print("card used")
 		for z in valid_move_array:
 			erase_cell(2, z)
 
@@ -134,7 +134,7 @@ func _external_move(playerID, x, y):
 		player2 += Vector2i(x, y)
 		set_cell(3, player2, 2, Vector2i(0, 0), 0)
 		print("Player moved to ", player2)
-		print("card used")
+
 
 func _input(event):
 	if not can_move_1 and not can_move_2:
@@ -153,7 +153,6 @@ func _input(event):
 			player1 = tile
 			set_cell(3, player1, 2, Vector2i(0, 0), 0)
 			print("Player moved to ", player1)
-			print("card used")
 			for z in valid_move_array:
 				erase_cell(2, z) 
 			valid_move_array = []
@@ -164,3 +163,9 @@ func get_relative_mouse_position() -> Vector2i:
 	var local_pos = to_local(get_viewport().get_mouse_position())
 	local_pos /= scale
 	return Vector2i(int(local_pos.x / tile_set.tile_size.x * scale.x), int(local_pos.y / tile_set.tile_size.y * scale.y))
+	
+	
+func card_used(card) -> void:
+	if card != null:
+		card.queue_free()
+		print("removed")
