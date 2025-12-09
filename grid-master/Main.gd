@@ -110,3 +110,7 @@ func deck_empty():
 	print(draw_pile)
 	$Deck.deck_is_empty(draw_pile)
 	
+
+
+func _on_button_pressed() -> void:
+	get_tree().change_scene_to_file("res://Deck/shop.tscn")
