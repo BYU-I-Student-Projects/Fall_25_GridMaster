@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://bo3bkv40gmcgp"]
+
+[ext_resource type="PackedScene" uid="uid://mmukdh7uayme" path="res://Card/Card_Sence/card.tscn" id="1_c8uhd"]
+[ext_resource type="Script" path="res://fire_pillar.gd" id="2_umolk"]
+
+[node name="Card" instance=ExtResource("1_c8uhd")]
+script = ExtResource("2_umolk")
+
+[node name="CardMoveButton" parent="Control" index="0"]
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CardResourceButton" parent="Control" index="2"]
+grow_horizontal = 2
+grow_vertical = 2

@@ -10,6 +10,10 @@ enum status{POISON,FREEZE,BURN,REGEN,SHOCK}
 
 @onready var health_bar = $CanvasLayer/HealthBar
 
+func _ready():
+	_update_health()
+	GlobalSignal.connect("player_add_value", self._on_player_add_value, CONNECT_DEFERRED)
+
 func _status_effect():
 	for i in turntimer:
 		
@@ -40,10 +44,6 @@ func _status_effect():
 
 		if turntimer[i] > 1:
 			turntimer[i] -= 1
-
-func _ready():
-	_update_health()
-	GlobalSignal.connect("player_add_value", self._on_player_add_value)
 
 func _on_player_add_value(playerID, valueID, value):
 	if (playerID == pID):
