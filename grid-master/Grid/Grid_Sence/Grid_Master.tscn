@@ -39,7 +39,8 @@ texture_region_size = Vector2i(64, 64)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_h4vx0"]
 texture = ExtResource("5_bkehc")
-texture_region_size = Vector2i(128, 128)
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_3pmb0"]
 tile_size = Vector2i(128, 128)
