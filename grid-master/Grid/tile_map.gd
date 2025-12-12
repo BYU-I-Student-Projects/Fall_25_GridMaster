@@ -41,7 +41,7 @@ func _ready():
 			
 	#sets players
 	set_cell(3, player1, 2, Vector2i(0,0), 0)
-	set_cell(3, player2, 2, Vector2i(0,0), 0)
+	set_cell(3, player2, 3, Vector2i(0,0), 0)
 
 func get_range(tile, move_pattern):
 	if (move_pattern == 1): #Move to any adjacent on immedate next tiles
@@ -197,7 +197,7 @@ func _external_move(playerID, x, y):
 		for z in valid_move_array:
 			erase_cell(2, z)
 	if playerID == 2:
-		if not verify_in_bounds(player1 + Vector2i(x, y)):
+		if not verify_in_bounds(player2 + Vector2i(x, y)):
 			return
 		erase_cell(3, player2)
 		player2 += Vector2i(x, y)

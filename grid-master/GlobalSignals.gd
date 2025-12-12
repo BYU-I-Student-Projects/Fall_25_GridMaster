@@ -2,10 +2,6 @@ extends Node
 
 @warning_ignore_start("unused_signal")
 signal player_move(playerID, range)
-
-signal card_effect_finished(card_instance)
-signal card_function_finished()
-signal deck_is_empty()
 signal move_at(X, Y, DX, DY)
 signal object_move(objectIDs, range)
 signal relative_spawn_object(object, ownership, move_pattern)

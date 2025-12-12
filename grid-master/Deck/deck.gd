@@ -2,8 +2,7 @@ class_name Deck
 extends Node2D
 
 # This is the master list of all cards in the correct order/set.
-var player_one_deck = ["card_atk", "card_atk", "card_atk", "card_atk", "card_atk", "card_atk"]
-var player_two_deck = ["card_atk", "card_atk", "card_atk", "card_atk", "card_atk", "card_atk"]
+var player_deck = ["card_atk", "card_atk", "card_atk", "card_atk", "card_atk", "card_atk"]
 # This array will act as your active draw pile.
 var draw_pile_one: Array = []
 var draw_pile_two: Array = []
@@ -12,9 +11,9 @@ var draw_pile_two: Array = []
 var card_registry = {}
 
 func _ready() -> void:
-	draw_pile_one = player_one_deck.duplicate() # This duplicates the player deck
+	draw_pile_one = player_deck.duplicate() # This duplicates the player deck
 	draw_pile_one.shuffle() # This shuffles the draw pile
-	draw_pile_two = player_two_deck.duplicate()
+	draw_pile_two = player_deck.duplicate()
 	draw_pile_two.shuffle()
 	 
 	card_registry = load_card_classes("res://Card/Card_Sence/")
