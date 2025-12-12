@@ -11,6 +11,7 @@ var draw_pile: Array = []
 var card_registry = {}
 
 func _ready() -> void:
+	await get_card_paths_for_deck(1)
 	draw_pile = player_deck.duplicate() # This duplicates the player deck
 	draw_pile.shuffle() # This shuffles the draw pile
 	print("Original master deck (untouched): ", player_deck)
@@ -36,9 +37,6 @@ func load_card_classes(path: String) -> Dictionary:
 		dir.list_dir_end()
 	return registry
 
-
-
-
 func draw_card():
 	if draw_pile.is_empty():
 		print("deck is empty")
@@ -63,3 +61,26 @@ func deck_is_empty(discard_pile):
 	draw_pile = discard_pile
 	draw_pile.shuffle()
 	
+
+func get_card_paths_for_deck(deck_id: int):
+	var q = SupabaseQuery.new()
+	q.from("CardsInDeck").select(["quantity", "Cards(path)"]).eq("deck_id", str(deck_id))
+	var task = Supabase.database.query(q)
+	task.completed.connect(Callable(self, "_on_cards_query_completed"))
+
+
+func _on_cards_query_completed(task):
+	if task.error:
+		print("Error: %s" % task.error.message)
+		return
+	var paths: Array = []
+	for row in task.data:
+		var card_rel = row.get("Cards", row.get("cards", null))
+		if card_rel == null:
+			continue
+		var path = card_rel.get("path", null)
+		var qty = int(row.get("quantity", 0))
+		for i in range(qty):
+			paths.append(path)
+	player_deck = paths
+	print("Deck paths: ", player_deck)
