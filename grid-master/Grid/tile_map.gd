@@ -11,12 +11,16 @@ var can_move_1 = false
 var can_move_2 = false
 var move_range = 0
 var valid_move_array = []
-
+@export_node_path var btn_path: NodePath = "End_Button"
 
 func _ready():
+	var end_btn = get_node(btn_path) as Button
 	GlobalSignal.connect("player_move", _on_player_move)
 	GlobalSignal.connect("free_move", _external_move)
 	GlobalSignal.connect("card_effect_finished", card_used)
+	GlobalSignal.connect("end_turn", end_turn)
+	
+	if end_btn: end_btn.pressed.connect(end_turn)
 	
 	#sets grass grid
 	for x in GridSizeX:
@@ -28,7 +32,7 @@ func _ready():
 			
 	#sets players
 	set_cell(3, player1, 2, Vector2i(0,0), 0)
-	set_cell(3, player2, 2, Vector2i(0,0), 0)
+	set_cell(3, player2, 3, Vector2i(0,0), 0)
 			
 			
 func _process(_delta) :
@@ -43,60 +47,112 @@ func _process(_delta) :
 		
 		
 func _on_player_move(playerID, dist):
-	if playerID != 1:
-		return
-	if (dist == 1): #Move to any adjacent on immedate next tiles
-		valid_move_array.append(player1 + Vector2i(1, 0))
-		valid_move_array.append(player1 + Vector2i(-1, 0))
-		valid_move_array.append(player1 + Vector2i(0, 1))
-		valid_move_array.append(player1 + Vector2i(0, -1))
-	if (dist == 2): #Move to any corners on immedate next times
-		valid_move_array.append(player1 + Vector2i(1, 1))
-		valid_move_array.append(player1 + Vector2i(-1, 1))
-		valid_move_array.append(player1 + Vector2i(1, -1))
-		valid_move_array.append(player1 + Vector2i(-1, -1))
-	if (dist == 3): #Move to any of the immediate tiles
-		valid_move_array.append(player1 + Vector2i(1, 0))
-		valid_move_array.append(player1 + Vector2i(-1, 0))
-		valid_move_array.append(player1 + Vector2i(0, 1))
-		valid_move_array.append(player1 + Vector2i(0, -1))
-		valid_move_array.append(player1 + Vector2i(1, 1))
-		valid_move_array.append(player1 + Vector2i(-1, 1))
-		valid_move_array.append(player1 + Vector2i(-1, -1))
-		valid_move_array.append(player1 + Vector2i(1, -1))
-	if (dist == 4): #Move to any of the 3 immediately ahead tiles
-		valid_move_array.append(player1 + Vector2i(0, -1))
-		valid_move_array.append(player1 + Vector2i(1, -1))
-		valid_move_array.append(player1 + Vector2i(-1, -1))
-	if (dist == 5): #Move to any of the 3 immediately behind tiles
-		valid_move_array.append(player1 + Vector2i(0, 1))
-		valid_move_array.append(player1 + Vector2i(-1, 1))
-		valid_move_array.append(player1 + Vector2i(1, 1))
-	if (dist == 6): #Moves side to side
-		valid_move_array.append(player1 + Vector2i(1, 0))
-		valid_move_array.append(player1 + Vector2i(-1, 0))
-	if (dist == 7): #Moves forward or back
-		valid_move_array.append(player1 + Vector2i(0, 1))
-		valid_move_array.append(player1 + Vector2i(0, -1))
-	if (dist == 8): #Jumps 2 tiles in a cardinal direction
-		valid_move_array.append(player1 + Vector2i(2, 0))
-		valid_move_array.append(player1 + Vector2i(-2, 0))
-		valid_move_array.append(player1 + Vector2i(0, 2))
-		valid_move_array.append(player1 + Vector2i(0, -2))
-		valid_move_array.append(player1 + Vector2i(2, 2))
-		valid_move_array.append(player1 + Vector2i(-2, 2))
-		valid_move_array.append(player1 + Vector2i(-2, -2))
-		valid_move_array.append(player1 + Vector2i(2, -2))
-	if (dist == 9): #Knight movements
-		valid_move_array.append(player1 + Vector2i(1, 2))
-		valid_move_array.append(player1 + Vector2i(2, 1))
-		valid_move_array.append(player1 + Vector2i(-1, 2))
-		valid_move_array.append(player1 + Vector2i(-2, 1))
-		valid_move_array.append(player1 + Vector2i(1, -2))
-		valid_move_array.append(player1 + Vector2i(2, -1))
-		valid_move_array.append(player1 + Vector2i(-1, -2))
-		valid_move_array.append(player1 + Vector2i(-2, -1))
-	can_move_1 = true
+	if playerID == 1:
+		if (dist == 1): #Move to any adjacent on immedate next tiles
+			valid_move_array.append(player1 + Vector2i(1, 0))
+			valid_move_array.append(player1 + Vector2i(-1, 0))
+			valid_move_array.append(player1 + Vector2i(0, 1))
+			valid_move_array.append(player1 + Vector2i(0, -1))
+		if (dist == 2): #Move to any corners on immedate next times
+			valid_move_array.append(player1 + Vector2i(1, 1))
+			valid_move_array.append(player1 + Vector2i(-1, 1))
+			valid_move_array.append(player1 + Vector2i(1, -1))
+			valid_move_array.append(player1 + Vector2i(-1, -1))
+		if (dist == 3): #Move to any of the immediate tiles
+			valid_move_array.append(player1 + Vector2i(1, 0))
+			valid_move_array.append(player1 + Vector2i(-1, 0))
+			valid_move_array.append(player1 + Vector2i(0, 1))
+			valid_move_array.append(player1 + Vector2i(0, -1))
+			valid_move_array.append(player1 + Vector2i(1, 1))
+			valid_move_array.append(player1 + Vector2i(-1, 1))
+			valid_move_array.append(player1 + Vector2i(-1, -1))
+			valid_move_array.append(player1 + Vector2i(1, -1))
+		if (dist == 4): #Move to any of the 3 immediately ahead tiles
+			valid_move_array.append(player1 + Vector2i(0, -1))
+			valid_move_array.append(player1 + Vector2i(1, -1))
+			valid_move_array.append(player1 + Vector2i(-1, -1))
+		if (dist == 5): #Move to any of the 3 immediately behind tiles
+			valid_move_array.append(player1 + Vector2i(0, 1))
+			valid_move_array.append(player1 + Vector2i(-1, 1))
+			valid_move_array.append(player1 + Vector2i(1, 1))
+		if (dist == 6): #Moves side to side
+			valid_move_array.append(player1 + Vector2i(1, 0))
+			valid_move_array.append(player1 + Vector2i(-1, 0))
+		if (dist == 7): #Moves forward or back
+			valid_move_array.append(player1 + Vector2i(0, 1))
+			valid_move_array.append(player1 + Vector2i(0, -1))
+		if (dist == 8): #Jumps 2 tiles in a cardinal direction
+			valid_move_array.append(player1 + Vector2i(2, 0))
+			valid_move_array.append(player1 + Vector2i(-2, 0))
+			valid_move_array.append(player1 + Vector2i(0, 2))
+			valid_move_array.append(player1 + Vector2i(0, -2))
+			valid_move_array.append(player1 + Vector2i(2, 2))
+			valid_move_array.append(player1 + Vector2i(-2, 2))
+			valid_move_array.append(player1 + Vector2i(-2, -2))
+			valid_move_array.append(player1 + Vector2i(2, -2))
+		if (dist == 9): #Knight movements
+			valid_move_array.append(player1 + Vector2i(1, 2))
+			valid_move_array.append(player1 + Vector2i(2, 1))
+			valid_move_array.append(player1 + Vector2i(-1, 2))
+			valid_move_array.append(player1 + Vector2i(-2, 1))
+			valid_move_array.append(player1 + Vector2i(1, -2))
+			valid_move_array.append(player1 + Vector2i(2, -1))
+			valid_move_array.append(player1 + Vector2i(-1, -2))
+			valid_move_array.append(player1 + Vector2i(-2, -1))
+		can_move_1 = true
+	if playerID == 2:
+		if (dist == 1): #Move to any adjacent on immedate next tiles
+			valid_move_array.append(player2 + Vector2i(1, 0))
+			valid_move_array.append(player2 + Vector2i(-1, 0))
+			valid_move_array.append(player2 + Vector2i(0, 1))
+			valid_move_array.append(player2 + Vector2i(0, -1))
+		if (dist == 2): #Move to any corners on immedate next times
+			valid_move_array.append(player2 + Vector2i(1, 1))
+			valid_move_array.append(player2 + Vector2i(-1, 1))
+			valid_move_array.append(player2 + Vector2i(1, -1))
+			valid_move_array.append(player2 + Vector2i(-1, -1))
+		if (dist == 3): #Move to any of the immediate tiles
+			valid_move_array.append(player2 + Vector2i(1, 0))
+			valid_move_array.append(player1 + Vector2i(-1, 0))
+			valid_move_array.append(player2 + Vector2i(0, 1))
+			valid_move_array.append(player2 + Vector2i(0, -1))
+			valid_move_array.append(player2 + Vector2i(1, 1))
+			valid_move_array.append(player2 + Vector2i(-1, 1))
+			valid_move_array.append(player2 + Vector2i(-1, -1))
+			valid_move_array.append(player2 + Vector2i(1, -1))
+		if (dist == 4): #Move to any of the 3 immediately ahead tiles
+			valid_move_array.append(player2 + Vector2i(0, -1))
+			valid_move_array.append(player2 + Vector2i(1, -1))
+			valid_move_array.append(player2 + Vector2i(-1, -1))
+		if (dist == 5): #Move to any of the 3 immediately behind tiles
+			valid_move_array.append(player2 + Vector2i(0, 1))
+			valid_move_array.append(player2 + Vector2i(-1, 1))
+			valid_move_array.append(player2 + Vector2i(1, 1))
+		if (dist == 6): #Moves side to side
+			valid_move_array.append(player2 + Vector2i(1, 0))
+			valid_move_array.append(player2 + Vector2i(-1, 0))
+		if (dist == 7): #Moves forward or back
+			valid_move_array.append(player2 + Vector2i(0, 1))
+			valid_move_array.append(player2 + Vector2i(0, -1))
+		if (dist == 8): #Jumps 2 tiles in a cardinal direction
+			valid_move_array.append(player2 + Vector2i(2, 0))
+			valid_move_array.append(player2 + Vector2i(-2, 0))
+			valid_move_array.append(player2 + Vector2i(0, 2))
+			valid_move_array.append(player2 + Vector2i(0, -2))
+			valid_move_array.append(player2 + Vector2i(2, 2))
+			valid_move_array.append(player2 + Vector2i(-2, 2))
+			valid_move_array.append(player2 + Vector2i(-2, -2))
+			valid_move_array.append(player2 + Vector2i(2, -2))
+		if (dist == 9): #Knight movements
+			valid_move_array.append(player2 + Vector2i(1, 2))
+			valid_move_array.append(player2 + Vector2i(2, 1))
+			valid_move_array.append(player2 + Vector2i(-1, 2))
+			valid_move_array.append(player2 + Vector2i(-2, 1))
+			valid_move_array.append(player2 + Vector2i(1, -2))
+			valid_move_array.append(player2 + Vector2i(2, -1))
+			valid_move_array.append(player2 + Vector2i(-1, -2))
+			valid_move_array.append(player2 + Vector2i(-2, -1))
+		can_move_1 = true
 	for z in valid_move_array:
 		if (z.x < 0) or (z.x > 2):
 			pass
@@ -122,7 +178,6 @@ func _external_move(playerID, x, y):
 		print("Player moved to ", player1)
 		for z in valid_move_array:
 			erase_cell(2, z)
-
 	if playerID == 2:
 		if ((player2 + Vector2i(x, y)).x < 0) or ((player2 + Vector2i(x, y)).x > 2):
 			return
@@ -131,10 +186,11 @@ func _external_move(playerID, x, y):
 		if ((player2 + Vector2i(x, y)) == player1) or ((player2 + Vector2i(x, y)) == player2):
 			return
 		erase_cell(3, player2)
-		player2 += Vector2i(x, y)
-		set_cell(3, player2, 2, Vector2i(0, 0), 0)
-		print("Player moved to ", player2)
-
+		player1 += Vector2i(x, y)
+		set_cell(3, player2, 3, Vector2i(0, 0), 0)
+		print("Player moved to ", player1)
+		for z in valid_move_array:
+			erase_cell(2, z)
 
 func _input(event):
 	if not can_move_1 and not can_move_2:
@@ -169,3 +225,6 @@ func card_used(card) -> void:
 	if card != null:
 		card.queue_free()
 		print("removed")
+
+func end_turn():
+	GlobalSignal.emit_signal("end_current_turn")
