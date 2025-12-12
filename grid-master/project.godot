@@ -21,6 +21,7 @@ GlobalSignal="*res://GlobalSignals.gd"
 Preload="*res://preload.gd"
 Supabase="*res://addons/supabase/Supabase/supabase.gd"
 Firebase="*res://addons/godot-firebase/firebase/firebase.tscn"
+Main="*res://Main.gd"
 
 [display]
 
