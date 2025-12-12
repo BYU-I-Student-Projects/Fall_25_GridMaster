@@ -16,8 +16,10 @@ var move_range = 0
 var valid_move_array = []
 var selected_tiles: Array = []
 
+@export_node_path var btn_path: NodePath = "End_Button"
 
 func _ready():
+	var end_btn = get_node(btn_path) as Button
 	GlobalSignal.connect("player_move", _on_player_move)
 	GlobalSignal.connect("free_move", _external_move)
 	GlobalSignal.connect("card_effect_finished", card_used)
@@ -25,6 +27,9 @@ func _ready():
 	GlobalSignal.connect("spawn_effect_zone", _on_spawn_effect_zone)
 	GlobalSignal.connect("move_at", _on_move_at)
 	GlobalSignal.connect("object_move", _on_object_move)
+	GlobalSignal.connect("end_turn", end_turn)
+	
+	if end_btn: end_btn.pressed.connect(end_turn)
 	
 	#sets grass grid
 	for x in GridSizeX:
@@ -191,7 +196,6 @@ func _external_move(playerID, x, y):
 		print("Player moved to ", player1)
 		for z in valid_move_array:
 			erase_cell(2, z)
-
 	if playerID == 2:
 		if not verify_in_bounds(player1 + Vector2i(x, y)):
 			return
@@ -300,3 +304,6 @@ func card_used(card) -> void:
 	if card != null:
 		card.queue_free()
 		print("removed")
+
+func end_turn():
+	GlobalSignal.emit_signal("end_current_turn")

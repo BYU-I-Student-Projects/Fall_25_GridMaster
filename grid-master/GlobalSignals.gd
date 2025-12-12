@@ -21,3 +21,7 @@ signal free_move(objectID, X, Y)
 signal spawn_effect_zone(effectID, X, Y, magnitude, duration)
 signal player_add_value(playerID, effectID, value)
 # EffectIDs: 1: Heal, 2: Damage, 3: Resource Gain, 4: Resource Loss
+signal card_effect_finished(card_instance)
+signal card_function_finished()
+signal deck_is_empty()
+signal end_current_turn()
