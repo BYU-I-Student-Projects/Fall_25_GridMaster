@@ -8,20 +8,21 @@ var effects = {}
 var prev_tile = Vector2i(-1,-1)
 var player1 = Vector2i(1, 4)
 var player2 = Vector2i(1, 1)
-var player_turn = 1
 var can_move_1 = false
 var can_move_2 = false
 var can_move = false
 var move_range = 0
 var valid_move_array = []
 var selected_tiles: Array = []
+var focused_player
+var Main
 
 @export_node_path var btn_path: NodePath = "End_Button"
 
 func _ready():
+	Main = get_parent()
 	var end_btn = get_node(btn_path) as Button
 	GlobalSignal.connect("player_move", _on_player_move)
-	GlobalSignal.connect("free_move", _external_move)
 	GlobalSignal.connect("card_effect_finished", card_used)
 	GlobalSignal.connect("spawn_object", _on_spawn_object)
 	GlobalSignal.connect("spawn_effect_zone", _on_spawn_effect_zone)
@@ -113,15 +114,26 @@ func get_player_location_from_ID(playerID):
 		return player2
 
 func _on_player_move(playerID, dist):
-	if playerID != Main.current_player:
-		return
-	get_range(get_player_location_from_ID(playerID), dist)
+	if playerID == 1:
+		focused_player = Main.current_player
+	elif  playerID == 2:
+		if Main.current_player == 1:
+			focused_player = 2
+		else:
+			focused_player = 1
+	get_range(get_player_location_from_ID(focused_player), dist)
 	can_move = true
 	for z in valid_move_array:
 		if (z == player1) or (z == player2):
 			pass
 		elif (verify_in_bounds(z)):
 			set_cell(2, z, 1, Vector2(0, 0))
+
+func get_icon_number_from_playerID(playerID):
+	if playerID == 1:
+		return 2
+	else:
+		return 3
 
 func verify_in_bounds(pos: Vector2i) -> bool:
 	return (pos.x >= 0 and pos.x <= 2) and (pos.y >= 0 and pos.y <= 5)
@@ -186,24 +198,6 @@ func _on_spawn_effect_zone(effect_name: String, X: int, Y: int, magnitude: int =
 		if instance.tileID != -1:
 			set_cell(2, pos, instance.tileID, Vector2i(0,0), 0)
 
-func _external_move(playerID, x, y):
-	if playerID == 1:
-		if not verify_in_bounds(player1 + Vector2i(x, y)):
-			return
-		erase_cell(3, player1)
-		player1 += Vector2i(x, y)
-		set_cell(3, player1, 2, Vector2i(0, 0), 0)
-		print("Player moved to ", player1)
-		for z in valid_move_array:
-			erase_cell(2, z)
-	if playerID == 2:
-		if not verify_in_bounds(player2 + Vector2i(x, y)):
-			return
-		erase_cell(3, player2)
-		player2 += Vector2i(x, y)
-		set_cell(3, player2, 2, Vector2i(0, 0), 0)
-		print("Player moved to ", player2)
-
 func _on_move_at(x: int, y: int, dX: int, dY: int) -> void:
 	move_object_at(Vector2i(x, y), dX, dY)
 
@@ -247,10 +241,13 @@ func _input(event):
 			if not Dic.has(str(tile)):
 				return
 			if tile in valid_move_array:
-				erase_cell(3, player1)
-				player1 = tile
-				set_cell(3, player1, 2, Vector2i(0, 0), 0)
-				print("Player moved to ", player1)
+				erase_cell(3, get_player_location_from_ID(focused_player))
+				if focused_player == 1:
+					player1 = tile
+				else:
+					player2 = tile
+				set_cell(3, get_player_location_from_ID(focused_player), get_icon_number_from_playerID(focused_player), Vector2i(0, 0), 0)
+				print("Player moved to ", get_player_location_from_ID(focused_player))
 				for z in valid_move_array:
 					erase_cell(2, z)
 				valid_move_array.clear()

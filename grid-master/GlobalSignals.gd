@@ -9,11 +9,6 @@ signal spawn_object(object, ownership, X, Y)
 # Object should be used to create a specific object
 # Ownership 0 = Neutral, 1 = Player1, 2 = Player2
 
-signal free_move(objectID, X, Y)
-# ObjectIDs: 1: player1, 2: player2, 3: Effect Zone (damage, healing, status, 
-# etc), 10: Neutral Spawnable, 11: team1 Spawnable, 12: team2 Spawnable
-# (add other objects' IDs as they're implemented.)
-
 signal spawn_effect_zone(effectID, X, Y, magnitude, duration)
 signal player_add_value(playerID, effectID, value)
 # EffectIDs: 1: Heal, 2: Damage, 3: Resource Gain, 4: Resource Loss

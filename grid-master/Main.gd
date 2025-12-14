@@ -9,7 +9,7 @@ var current_player_discard_pile: Array = []
 @onready var bottom_bar: HBoxContainer = $Deck/UI_Layer/Bottom_Bar
 const CARDS_DIRECTORY = "res://Card/Card_Sence/"
 var card_registry = {}
-var current_player = 1
+var current_player
 const CARD_SPACING = 10
 const CARD_WIDTH = 160
 
