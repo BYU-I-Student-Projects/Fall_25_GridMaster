@@ -49,6 +49,7 @@ func _ready():
 	set_cell(3, player2, 3, Vector2i(0,0), 0)
 
 func get_range(tile, move_pattern):
+	valid_move_array = []
 	if (move_pattern == 1): #Move to any adjacent on immedate next tiles
 		valid_move_array.append(tile + Vector2i(1, 0))
 		valid_move_array.append(tile + Vector2i(-1, 0))
@@ -166,6 +167,11 @@ func _process(_delta) :
 	if Dic.has(str(tile)):
 		set_cell(1, tile, 1, Vector2i(0, 0), 0)
 		prev_tile = tile
+		
+func clear_move():
+	for x in GridSizeX:
+		for y in GridSizeY:
+			erase_cell(2, Vector2i(x, y))
 
 func get_player_location_from_ID(playerID):
 	if playerID == 1:
@@ -183,6 +189,7 @@ func _on_player_move(playerID, dist):
 			focused_player = 1
 	get_range(get_player_location_from_ID(focused_player), dist)
 	can_move = true
+	clear_move()
 	for z in valid_move_array:
 		if (z == player1) or (z == player2):
 			pass
@@ -315,8 +322,7 @@ func _input(event):
 				player2 = tile
 			set_cell(3, get_player_location_from_ID(focused_player), get_icon_number_from_playerID(focused_player), Vector2i(0, 0), 0)
 			print("Player moved to ", get_player_location_from_ID(focused_player))
-			for z in valid_move_array:
-				erase_cell(2, z)
+			clear_move()
 			valid_move_array.clear()
 			can_move = false
 			GlobalSignal.emit_signal("card_function_finished")
