@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 GlobalSignal="*res://GlobalSignals.gd"
 Preload="*res://preload.gd"
 Supabase="*res://addons/supabase/Supabase/supabase.gd"
+Firebase="*res://addons/godot-firebase/firebase/firebase.tscn"
 
 [display]
 
@@ -34,6 +35,7 @@ project/assembly_name="GridMaster"
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/http-sse-client/plugin.cfg", "res://addons/supabase/plugin.cfg")
+enabled=PackedStringArray("res://addons/godot-firebase/plugin.cfg", "res://addons/http-sse-client/plugin.cfg")
 
 [input]
 
