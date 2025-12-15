@@ -19,6 +19,7 @@ var Main
 var current_object_spawn
 var magnitude
 var duration
+var card_in_use
 
 @export_node_path var btn_path: NodePath = "End_Button"
 
@@ -33,6 +34,7 @@ func _ready():
 	GlobalSignal.connect("move_at", _on_move_at)
 	GlobalSignal.connect("object_move", _on_object_move)
 	GlobalSignal.connect("end_turn", end_turn)
+	GlobalSignal.connect("card_in_use", set_active_card)
 	
 	if end_btn: end_btn.pressed.connect(end_turn)
 	
@@ -382,10 +384,14 @@ func get_relative_mouse_position() -> Vector2i:
 	local_pos /= scale
 	return Vector2i(int(local_pos.x / tile_set.tile_size.x * scale.x), int(local_pos.y / tile_set.tile_size.y * scale.y))
 
+func set_active_card(card_instance):
+	card_in_use = card_instance
+	
 func card_used(card) -> void:
 	if card != null:
-		card.queue_free()
-		print("removed")
+		if card == card_in_use:
+			card.queue_free()
+			print("removed")
 
 func end_turn():
 	GlobalSignal.emit_signal("end_current_turn")

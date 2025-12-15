@@ -19,16 +19,19 @@ func _ready() -> void:
 
 func _on_button_action_1() -> void:
 	effect_one()
+	GlobalSignal.emit_signal("card_in_use", self)
 	await GlobalSignal.card_function_finished
 	GlobalSignal.emit_signal("card_effect_finished", self)
 
 func _on_button_action_2() -> void:
 	effect_two()
+	GlobalSignal.emit_signal("card_in_use", self)
 	await GlobalSignal.card_function_finished
 	GlobalSignal.emit_signal("card_effect_finished", self)
 
 func _on_button_action_3() -> void:
 	effect_three()
+	GlobalSignal.emit_signal("card_in_use", self)
 	await GlobalSignal.card_function_finished
 	GlobalSignal.emit_signal("card_effect_finished", self)
 
