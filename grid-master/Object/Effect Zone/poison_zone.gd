@@ -1,9 +1,9 @@
 extends object
-class_name damage_zone
+class_name poison_zone
 var magnitude
 var duration
 
 func _ready() -> void:
-	tileID = 4
+	tileID = 5
 	magnitude = 10
 	duration = 2

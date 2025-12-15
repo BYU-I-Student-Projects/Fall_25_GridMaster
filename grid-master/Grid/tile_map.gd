@@ -231,7 +231,7 @@ func _on_spawn_object(object_name: String, ownership: int, X: int, Y: int) -> vo
 		return
 	set_cell(3, tile, instance.tileID, Vector2i(0,0), 0)
 
-func _on_spawn_effect_zone(effect_name: String, X: int, Y: int, magnitude: int = 0, duration: int = 2) -> void:
+func _on_spawn_effect_zone(effect_name: String, X: int, Y: int) -> void:
 	var pos = Vector2i(X, Y)
 	if not verify_in_bounds(pos):
 		push_error("Spawn position %s out of bounds" % pos)
@@ -250,9 +250,9 @@ func _on_spawn_effect_zone(effect_name: String, X: int, Y: int, magnitude: int =
 			effects[str(pos)] = []
 		effects[str(pos)].append({
 			"type": effect_name,
-			"magnitude": magnitude,
+			"magnitude": instance.magnitude,
 			"node": instance,
-			"duration": duration
+			"duration": instance.duration
 		})
 
 		if instance.tileID != -1:
@@ -261,16 +261,13 @@ func _on_spawn_effect_zone(effect_name: String, X: int, Y: int, magnitude: int =
 func _on_move_at(x: int, y: int, dX: int, dY: int) -> void:
 	move_object_at(Vector2i(x, y), dX, dY)
 
-func _on_relative_spawn_object(objectID: String, playerID: int, move_pattern: int, damage: int = 0, time: int = 0) -> void:
+func _on_relative_spawn_object(objectID: String, ownerID: int, move_pattern: int) -> void:
 	valid_move_array.clear()
 	current_object_spawn = objectID
-	magnitude = damage
-	duration = time
-	if playerID == 1:
-		get_range(player1, move_pattern)
-		for tile in valid_move_array:
-			if verify_in_bounds(tile) and not objects.has(str(tile)) and tile != player1 and tile != player2:
-				set_cell(2, tile, 1, Vector2i(0,0))
+	get_range(get_player_location_from_ID(Main.current_player), move_pattern)
+	for tile in valid_move_array:
+		if verify_in_bounds(tile) and not objects.has(str(tile)) and tile != player1 and tile != player2:
+			set_cell(2, tile, 1, Vector2i(0,0))
 
 func move_object_at(tile: Vector2i, dX: int, dY: int) -> void:
 	var key = str(tile)
@@ -339,7 +336,7 @@ func _input(event):
 		if !current_object_spawn.contains("zone"):
 			_on_spawn_object(current_object_spawn, 0, tile.x, tile.y)
 		else:
-			_on_spawn_effect_zone(current_object_spawn, tile.x, tile.y, magnitude, duration)
+			_on_spawn_effect_zone(current_object_spawn, tile.x, tile.y)
 		for z in valid_move_array: erase_cell(2, z)
 		valid_move_array.clear()
 		current_object_spawn = ""

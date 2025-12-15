@@ -9,8 +9,14 @@ script = ExtResource("2_o0r43")
 
 [node name="Sprite2D" parent="." index="0"]
 position = Vector2(79.100006, 143.63751)
-scale = Vector2(0.37552083, 0.36463162)
+scale = Vector2(0.4, 0.388)
 texture = ExtResource("3_2spc7")
+
+[node name="Control" parent="." index="1"]
+offset_left = -1.0
+offset_top = 4.0
+offset_right = 159.0
+offset_bottom = 288.0
 
 [node name="CardMoveButton" parent="Control" index="0"]
 text = "Move"

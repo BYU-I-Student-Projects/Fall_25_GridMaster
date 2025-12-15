@@ -9,7 +9,7 @@ signal spawn_object(objectID, ownership, X, Y)
 # Object should be used to create a specific object
 # Ownership 0 = Neutral, 1 = Player1, 2 = Player2
 
-signal spawn_effect_zone(effectID, X, Y, magnitude, duration)
+signal spawn_effect_zone(effectID, X, Y)
 signal player_add_value(playerID, effectID, value)
 # EffectIDs: 1: Heal, 2: Damage, 3: Resource Gain, 4: Resource Loss
 signal card_effect_finished(card_instance)
