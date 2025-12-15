@@ -253,8 +253,6 @@ func _on_spawn_effect_zone(effect_name: String, X: int, Y: int) -> void:
 	if instance != null and instance is Object:
 		add_child(instance)
 
-		# Currently, multiple effects should be able to stack. If we don't want to keep this, we'll
-		# need to rework this chunk
 		if not effects.has(str(pos)):
 			effects[str(pos)] = []
 		effects[str(pos)].append({
@@ -265,7 +263,7 @@ func _on_spawn_effect_zone(effect_name: String, X: int, Y: int) -> void:
 		})
 
 		if instance.tileID != -1:
-			set_cell(2, pos, instance.tileID, Vector2i(0,0), 0)
+			set_cell(0, pos, instance.tileID, Vector2i(0,0), 0)
 
 func _on_move_at(x: int, y: int, dX: int, dY: int) -> void:
 	move_object_at(Vector2i(x, y), dX, dY)
@@ -394,4 +392,17 @@ func card_used(card) -> void:
 			print("removed")
 
 func end_turn():
+	for x in GridSizeX:
+		for y in GridSizeY:
+			if str(Vector2i(x, y)) in effects:
+				for effect in effects[str(Vector2i(x, y))]:
+					if player1 == Vector2i(x, y):
+						# Assumes all effect_zones are damage_zones
+						GlobalSignal.emit_signal("player_add_value", 1, 1, -1 * effect.magnitude)
+					if player1 == Vector2i(x, y):
+						GlobalSignal.emit_signal("player_add_value", 2, 1, -1 * effect.magnitude)
+					effect.duration -= 1
+					if effect.duration == 0:
+						effects.erase(effect)
+						set_cell(0, Vector2i(x, y), 0, Vector2i(0,0), 0)
 	GlobalSignal.emit_signal("end_current_turn")
