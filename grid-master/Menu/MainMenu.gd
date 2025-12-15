@@ -25,7 +25,7 @@ func _on_PlayButton_pressed():
 # Function connected to the "Sign In" button.
 func _on_SignInButton_pressed():
 	print("Sign In button pressed. Opening sign in menu...")
-	get_tree().change_scene_to_file("res://Login/Login_menu.tscn")
+	# TODO: Add logic to show a sign-in dialog or load a sign-in scene.
 	
 # Function connected to the "Leaderboards" button.
 func _on_LeaderboardsButton_pressed():

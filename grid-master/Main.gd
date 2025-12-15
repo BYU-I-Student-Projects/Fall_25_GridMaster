@@ -1,6 +1,5 @@
 extends Node
 
-@onready var death_message: Label = $Death_Message
 var player_one_hand: Array = []
 var player_one_discard_pile: Array = []
 var player_two_hand: Array = []
@@ -19,7 +18,6 @@ func _ready() -> void:
 	GlobalSignal.connect("card_effect_finished", _on_card_used)
 	GlobalSignal.connect("deck_is_empty", deck_empty)
 	GlobalSignal.connect("end_current_turn", end_current_turn)
-	GlobalSignal.connect("player_died", _on_player_died)
 	
 	await GlobalSignal.deck_loaded
 	card_registry = $Deck.load_card_classes(CARDS_DIRECTORY)
@@ -30,11 +28,6 @@ func _ready() -> void:
 	print("Loaded card registry keys: ", card_registry.keys())
 	start_of_round()
 	print("Player's starting hand data: ", current_player_hand)
-
-# --- NEW FUNCTION ---
-func _on_player_died(playerID: int) -> void:
-	death_message.text = "Player %d has died!" % playerID
-	death_message.visible = true
 
 func current_player_start():
 	if current_player == 1:
@@ -141,7 +134,3 @@ func end_current_turn():
 		current_player_start()
 		start_of_round()
 		return
-
-
-func _on_button_pressed() -> void:
-	get_tree().change_scene_to_file("res://Deck/shop.tscn")

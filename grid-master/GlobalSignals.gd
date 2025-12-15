@@ -18,5 +18,3 @@ signal deck_is_empty()
 signal deck_loaded()
 signal end_current_turn()
 signal card_in_use(card_instance)
-
-signal player_died(player_id)
