@@ -10,3 +10,5 @@ signal free_move(objectID, X, Y)
 signal card_effect_finished(card_instance)
 signal card_function_finished()
 signal deck_is_empty()
+
+signal player_died(player_id)

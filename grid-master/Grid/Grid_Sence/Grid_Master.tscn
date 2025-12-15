@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" uid="uid://cq2x0b8vjjrgi" path="res://Main.gd" id="1_k7rd8"]
 [ext_resource type="Script" uid="uid://dnvkq8tek5vps" path="res://Grid/tile_map.gd" id="2_appru"]
-[ext_resource type="Texture2D" uid="uid://dovfso5phqdym" path="res://Grid/Grid_PNGS/grass_tile_128.png" id="2_mdl1i"]
-[ext_resource type="Texture2D" uid="uid://dhmdmyblc0hiv" path="res://Grid/Grid_PNGS/highlight_tile_128.png" id="3_kvaqq"]
-[ext_resource type="Texture2D" uid="uid://b6u7v8kppvowq" path="res://Grid/Grid_PNGS/guy.png" id="4_nx0r3"]
+[ext_resource type="Texture2D" uid="uid://tkkhewsq13xd" path="res://Grid/Grid_PNGS/grass_tile_128.png" id="2_mdl1i"]
+[ext_resource type="Texture2D" uid="uid://cab412hpc5ixm" path="res://Grid/Grid_PNGS/highlight_tile_128.png" id="3_kvaqq"]
+[ext_resource type="Texture2D" uid="uid://be0s7gfp84aqc" path="res://Grid/Grid_PNGS/guy.png" id="4_nx0r3"]
 [ext_resource type="Script" uid="uid://1s4l1fgu6q3c" path="res://Player_2.gd" id="7_a860w"]
 [ext_resource type="PackedScene" uid="uid://c3kvbud4t1din" path="res://player.tscn" id="7_gmv2k"]
 [ext_resource type="PackedScene" uid="uid://douv3iraewxih" path="res://Card/Card_Sence/example_card.tscn" id="8_8g3qx"]
@@ -15,13 +15,13 @@
 [ext_resource type="Script" uid="uid://chm125hv2xprb" path="res://Card/Player_2_example_card.gd" id="13_kvhnw"]
 [ext_resource type="PackedScene" uid="uid://kmlaehcrfdlq" path="res://Deck/Deck.tscn" id="14_aug3d"]
 [ext_resource type="Script" uid="uid://f5ia8fc75xfi" path="res://Deck/deck.gd" id="15_rh04y"]
-[ext_resource type="Texture2D" uid="uid://yynel0pip6sh" path="res://Card/Card_PNGS/temp basic card template.png" id="16_et11g"]
+[ext_resource type="Texture2D" uid="uid://cding6dgw46o6" path="res://Card/Card_PNGS/temp basic card template.png" id="16_et11g"]
 [ext_resource type="Texture2D" uid="uid://cwq57skks8k2v" path="res://Card/Card_PNGS/deck.png" id="17_h27mv"]
 [ext_resource type="Texture2D" uid="uid://d3l5mvrovphkv" path="res://simple flat silver c.png" id="18_bkehc"]
 [ext_resource type="Texture2D" uid="uid://dqihf1q5b1bsx" path="res://simple flat gold coi.png" id="18_et11g"]
-[ext_resource type="Script" uid="uid://bhlpmki2syrwp" path="res://Grid/Grid_Sence/simple_flat_gold_coi.gd" id="20_en3qa"]
 [ext_resource type="Script" uid="uid://nahd1r1br3k3" path="res://Grid/Grid_Sence/labelG.gd" id="21_en3qa"]
 [ext_resource type="Script" uid="uid://bdhqb5gamwift" path="res://Grid/Grid_Sence/labelS.gd" id="22_kajt0"]
+[ext_resource type="Script" uid="uid://c65htnkv667gy" path="res://Grid/Grid_Sence/death_message.gd" id="22_xtsbx"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_a860w"]
 resource_name = "Grass_tile"
@@ -247,7 +247,6 @@ texture = ExtResource("18_bkehc")
 position = Vector2(64, 152)
 scale = Vector2(0.125, 0.125)
 texture = ExtResource("18_et11g")
-script = ExtResource("20_en3qa")
 
 [node name="Label" type="Label" parent="."]
 offset_left = 48.0
@@ -262,5 +261,13 @@ offset_top = 133.0
 offset_right = 679.0
 offset_bottom = 172.0
 script = ExtResource("22_kajt0")
+
+[node name="Death_Message" type="Label" parent="."]
+custom_minimum_size = Vector2(600, 200)
+offset_left = 128.0
+offset_top = 296.0
+offset_right = 728.0
+offset_bottom = 496.0
+script = ExtResource("22_xtsbx")
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

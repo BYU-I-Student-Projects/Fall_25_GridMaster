@@ -59,6 +59,8 @@ func _on_player_add_value(playerID, valueID, value):
 func apply_damage(amount: int):
 	health = clamp(health - amount, 0, max_health)
 	_update_health()
+	if health <= 0:
+		_on_death()
 
 func heal(amount: int):
 	health = clamp(health + amount, 0, max_health)
@@ -66,3 +68,7 @@ func heal(amount: int):
 
 func _update_health():
 	health_bar.update_health(health, max_health)
+
+func _on_death() -> void:
+	# Tell the main scene this player has died
+	GlobalSignal.emit_signal("player_died", pID)
