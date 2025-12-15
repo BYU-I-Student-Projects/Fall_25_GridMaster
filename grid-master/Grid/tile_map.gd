@@ -16,6 +16,9 @@ var valid_move_array = []
 var selected_tiles: Array = []
 var focused_player
 var Main
+var current_object_spawn
+var magnitude
+var duration
 
 @export_node_path var btn_path: NodePath = "End_Button"
 
@@ -26,6 +29,7 @@ func _ready():
 	GlobalSignal.connect("card_effect_finished", card_used)
 	GlobalSignal.connect("spawn_object", _on_spawn_object)
 	GlobalSignal.connect("spawn_effect_zone", _on_spawn_effect_zone)
+	GlobalSignal.connect("relative_spawn_object", _on_relative_spawn_object)
 	GlobalSignal.connect("move_at", _on_move_at)
 	GlobalSignal.connect("object_move", _on_object_move)
 	GlobalSignal.connect("end_turn", end_turn)
@@ -96,6 +100,62 @@ func get_range(tile, move_pattern):
 		valid_move_array.append(tile + Vector2i(2, -1))
 		valid_move_array.append(tile + Vector2i(-1, -2))
 		valid_move_array.append(tile + Vector2i(-2, -1))
+	if (move_pattern == 10): #Select Any
+		valid_move_array.append(tile + Vector2i(-2, -5))
+		valid_move_array.append(tile + Vector2i(-2, -4))
+		valid_move_array.append(tile + Vector2i(-2, -3))
+		valid_move_array.append(tile + Vector2i(-2, -2))
+		valid_move_array.append(tile + Vector2i(-2, -1))
+		valid_move_array.append(tile + Vector2i(-2, 0))
+		valid_move_array.append(tile + Vector2i(-2, 1))
+		valid_move_array.append(tile + Vector2i(-2, 2))
+		valid_move_array.append(tile + Vector2i(-2, 3))
+		valid_move_array.append(tile + Vector2i(-2, 4))
+		valid_move_array.append(tile + Vector2i(-2, 5))
+		valid_move_array.append(tile + Vector2i(-1, -5))
+		valid_move_array.append(tile + Vector2i(-1, -4))
+		valid_move_array.append(tile + Vector2i(-1, -3))
+		valid_move_array.append(tile + Vector2i(-1, -2))
+		valid_move_array.append(tile + Vector2i(-1, -1))
+		valid_move_array.append(tile + Vector2i(-1, 0))
+		valid_move_array.append(tile + Vector2i(-1, 1))
+		valid_move_array.append(tile + Vector2i(-1, 2))
+		valid_move_array.append(tile + Vector2i(-1, 3))
+		valid_move_array.append(tile + Vector2i(-1, 4))
+		valid_move_array.append(tile + Vector2i(-1, 5))
+		valid_move_array.append(tile + Vector2i(0, -5))
+		valid_move_array.append(tile + Vector2i(0, -4))
+		valid_move_array.append(tile + Vector2i(0, -3))
+		valid_move_array.append(tile + Vector2i(0, -2))
+		valid_move_array.append(tile + Vector2i(0, -1))
+		valid_move_array.append(tile + Vector2i(0, 0))
+		valid_move_array.append(tile + Vector2i(0, 1))
+		valid_move_array.append(tile + Vector2i(0, 2))
+		valid_move_array.append(tile + Vector2i(0, 3))
+		valid_move_array.append(tile + Vector2i(0, 4))
+		valid_move_array.append(tile + Vector2i(0, 5))
+		valid_move_array.append(tile + Vector2i(1, -5))
+		valid_move_array.append(tile + Vector2i(1, -4))
+		valid_move_array.append(tile + Vector2i(1, -3))
+		valid_move_array.append(tile + Vector2i(1, -2))
+		valid_move_array.append(tile + Vector2i(1, -1))
+		valid_move_array.append(tile + Vector2i(1, 0))
+		valid_move_array.append(tile + Vector2i(1, 1))
+		valid_move_array.append(tile + Vector2i(1, 2))
+		valid_move_array.append(tile + Vector2i(1, 3))
+		valid_move_array.append(tile + Vector2i(1, 4))
+		valid_move_array.append(tile + Vector2i(1, 5))
+		valid_move_array.append(tile + Vector2i(2, -5))
+		valid_move_array.append(tile + Vector2i(2, -4))
+		valid_move_array.append(tile + Vector2i(2, -3))
+		valid_move_array.append(tile + Vector2i(2, -2))
+		valid_move_array.append(tile + Vector2i(2, -1))
+		valid_move_array.append(tile + Vector2i(2, 0))
+		valid_move_array.append(tile + Vector2i(2, 1))
+		valid_move_array.append(tile + Vector2i(2, 2))
+		valid_move_array.append(tile + Vector2i(2, 3))
+		valid_move_array.append(tile + Vector2i(2, 4))
+		valid_move_array.append(tile + Vector2i(2, 5))
 
 func _process(_delta) :
 	var tile = get_relative_mouse_position()
@@ -201,6 +261,17 @@ func _on_spawn_effect_zone(effect_name: String, X: int, Y: int, magnitude: int =
 func _on_move_at(x: int, y: int, dX: int, dY: int) -> void:
 	move_object_at(Vector2i(x, y), dX, dY)
 
+func _on_relative_spawn_object(objectID: String, playerID: int, move_pattern: int, damage: int = 0, time: int = 0) -> void:
+	valid_move_array.clear()
+	current_object_spawn = objectID
+	magnitude = damage
+	duration = time
+	if playerID == 1:
+		get_range(player1, move_pattern)
+		for tile in valid_move_array:
+			if verify_in_bounds(tile) and not objects.has(str(tile)) and tile != player1 and tile != player2:
+				set_cell(2, tile, 1, Vector2i(0,0))
+
 func move_object_at(tile: Vector2i, dX: int, dY: int) -> void:
 	var key = str(tile)
 	if not objects.has(key):
@@ -231,39 +302,50 @@ func move_object_at(tile: Vector2i, dX: int, dY: int) -> void:
 	GlobalSignal.emit_signal("card_function_finished")
 
 func _input(event):
-	if not can_move:
+	if not event.is_action_pressed("LeftClick"):
 		return
-	if event.is_action_pressed("LeftClick"):
-		var tile = get_relative_mouse_position()
-		if can_move:
-			if (tile == player1) or (tile == player2):
-				return
-			if not Dic.has(str(tile)):
-				return
-			if tile in valid_move_array:
-				erase_cell(3, get_player_location_from_ID(focused_player))
-				if focused_player == 1:
-					player1 = tile
-				else:
-					player2 = tile
-				set_cell(3, get_player_location_from_ID(focused_player), get_icon_number_from_playerID(focused_player), Vector2i(0, 0), 0)
-				print("Player moved to ", get_player_location_from_ID(focused_player))
-				for z in valid_move_array:
-					erase_cell(2, z)
-				valid_move_array.clear()
-				can_move = false
-				GlobalSignal.emit_signal("card_function_finished")
+	var tile = get_relative_mouse_position()
+	if can_move:
+		if (tile == player1) or (tile == player2):
 			return
-		elif selected_tiles.size() > 0:
-			if tile in valid_move_array:
-				for origin in selected_tiles:
-					if objects.has(str(origin)):
-						move_object_at(origin, tile.x - origin.x, tile.y - origin.y)
-						break
-				for z in valid_move_array:
-					erase_cell(2, z)
-				valid_move_array.clear()
-				selected_tiles.clear()
+		if not Dic.has(str(tile)):
+			return
+		if tile in valid_move_array:
+			erase_cell(3, get_player_location_from_ID(focused_player))
+			if focused_player == 1:
+				player1 = tile
+			else:
+				player2 = tile
+			set_cell(3, get_player_location_from_ID(focused_player), get_icon_number_from_playerID(focused_player), Vector2i(0, 0), 0)
+			print("Player moved to ", get_player_location_from_ID(focused_player))
+			for z in valid_move_array:
+				erase_cell(2, z)
+			valid_move_array.clear()
+			can_move = false
+			GlobalSignal.emit_signal("card_function_finished")
+		return
+	elif selected_tiles.size() > 0:
+		if tile in valid_move_array:
+			for origin in selected_tiles:
+				if objects.has(str(origin)):
+					move_object_at(origin, tile.x - origin.x, tile.y - origin.y)
+					break
+			for z in valid_move_array:
+				erase_cell(2, z)
+			valid_move_array.clear()
+			selected_tiles.clear()
+			GlobalSignal.emit_signal("card_function_finished")
+	elif current_object_spawn != "" and tile in valid_move_array:
+		if !current_object_spawn.contains("zone"):
+			_on_spawn_object(current_object_spawn, 0, tile.x, tile.y)
+		else:
+			_on_spawn_effect_zone(current_object_spawn, tile.x, tile.y, magnitude, duration)
+		for z in valid_move_array: erase_cell(2, z)
+		valid_move_array.clear()
+		current_object_spawn = ""
+		magnitude = 0
+		duration = 0
+		GlobalSignal.emit_signal("card_function_finished")
 
 func _on_object_move(objectIDs: Array, max_range: int) -> void:
 	valid_move_array.clear()

@@ -37,9 +37,6 @@ func load_card_classes(path: String) -> Dictionary:
 		dir.list_dir_end()
 	return registry
 
-
-
-
 func draw_card(player):
 	if player == 1:
 		if draw_pile_one.is_empty():

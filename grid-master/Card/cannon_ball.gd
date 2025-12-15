@@ -1,5 +1,5 @@
 extends Card
-class_name 
+class_name cannon_ball
 
 func effect_one():
 	GlobalSignal.emit_signal("player_move", 1, 6)
