@@ -19,6 +19,7 @@ func _ready() -> void:
 	GlobalSignal.connect("deck_is_empty", deck_empty)
 	GlobalSignal.connect("end_current_turn", end_current_turn)
 	
+	await GlobalSignal.deck_loaded
 	card_registry = $Deck.load_card_classes(CARDS_DIRECTORY)
 	
 	current_player = 1
