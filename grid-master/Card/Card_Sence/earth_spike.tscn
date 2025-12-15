@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://dk0y60f8st4go"]
+
+[ext_resource type="PackedScene" uid="uid://mmukdh7uayme" path="res://Card/Card_Sence/card.tscn" id="1_fbog4"]
+[ext_resource type="Script" uid="uid://b0t4yohpoxf5o" path="res://Card/earth_spike.gd" id="2_6md3k"]
+[ext_resource type="Texture2D" uid="uid://dbc3phkal5ovk" path="res://Card/Card_PNGS/Card_earth_spike.png" id="3_ig7a7"]
+
+[node name="Card" instance=ExtResource("1_fbog4")]
+script = ExtResource("2_6md3k")
+
+[node name="Sprite2D" parent="." index="0"]
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("3_ig7a7")
+
+[node name="Control" parent="." index="1"]
+offset_left = -1.0
+offset_top = 6.0
+offset_right = 159.0
+offset_bottom = 290.0
+
+[node name="CardMoveButton" parent="Control" index="0"]
+text = "Move"
+
+[node name="CardActionButton" parent="Control" index="1"]
+text = "Attack"
+
+[node name="CardResourceButton" parent="Control" index="2"]
+text = "Gain Resources"

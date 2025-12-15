@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://ddhbuxdq4kxlq"]
+
+[ext_resource type="PackedScene" uid="uid://mmukdh7uayme" path="res://Card/Card_Sence/card.tscn" id="1_rnk04"]
+[ext_resource type="Script" uid="uid://f3001t3txoaw" path="res://Card/dodge.gd" id="2_4lduu"]
+[ext_resource type="Texture2D" uid="uid://bbfmqvbw8mndp" path="res://Card/Card_PNGS/Card_dodge.png" id="3_kxu2u"]
+
+[node name="Card" instance=ExtResource("1_rnk04")]
+script = ExtResource("2_4lduu")
+
+[node name="Sprite2D" parent="." index="0"]
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("3_kxu2u")
+
+[node name="Control" parent="." index="1"]
+offset_left = -1.0
+offset_top = 6.0
+offset_right = 159.0
+offset_bottom = 290.0
+
+[node name="CardMoveButton" parent="Control" index="0"]
+text = "Move"
+
+[node name="CardActionButton" parent="Control" index="1"]
+text = "Heal"
+
+[node name="CardResourceButton" parent="Control" index="2"]
+text = "Gain Resources"

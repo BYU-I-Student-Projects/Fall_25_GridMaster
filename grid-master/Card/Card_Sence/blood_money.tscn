@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://ct4gia3kbbgg2"]
+
+[ext_resource type="PackedScene" uid="uid://mmukdh7uayme" path="res://Card/Card_Sence/card.tscn" id="1_jfete"]
+[ext_resource type="Script" uid="uid://crrrxb2o3esdf" path="res://Card/blood_money.gd" id="2_kp2ov"]
+[ext_resource type="Texture2D" uid="uid://cw2imrldsddyx" path="res://Card/Card_PNGS/Card_blood_money.png" id="3_r0xyc"]
+
+[node name="Card" instance=ExtResource("1_jfete")]
+script = ExtResource("2_kp2ov")
+
+[node name="Sprite2D" parent="." index="0"]
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("3_r0xyc")
+
+[node name="Control" parent="." index="1"]
+offset_left = -1.0
+offset_top = 4.0
+offset_right = 159.0
+offset_bottom = 288.0
+
+[node name="CardMoveButton" parent="Control" index="0"]
+text = "Move"
+
+[node name="CardActionButton" parent="Control" index="1"]
+text = "Summon Dark Exchange"
+
+[node name="CardResourceButton" parent="Control" index="2"]
+text = "Gain Resources"
