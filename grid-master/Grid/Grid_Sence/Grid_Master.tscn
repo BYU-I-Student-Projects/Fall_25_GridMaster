@@ -7,6 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://b6u7v8kppvowq" path="res://Grid/Grid_PNGS/guy.png" id="4_nx0r3"]
 [ext_resource type="Texture2D" uid="uid://b0wfl0ycowwi1" path="res://Grid/Grid_PNGS/guy 2.png" id="5_bkehc"]
 [ext_resource type="Texture2D" uid="uid://bo6wcfdqgaw3g" path="res://AoE.png" id="6_h4vx0"]
+[ext_resource type="Texture2D" uid="uid://b0wfl0ycowwi1" path="res://Grid/Grid_PNGS/guy 2.png" id="5_bkehc"]
+[ext_resource type="Texture2D" uid="uid://bo6wcfdqgaw3g" path="res://AoE.png" id="6_h4vx0"]
 [ext_resource type="Script" uid="uid://1s4l1fgu6q3c" path="res://Player_2.gd" id="7_a860w"]
 [ext_resource type="PackedScene" uid="uid://c3kvbud4t1din" path="res://player.tscn" id="7_gmv2k"]
 [ext_resource type="PackedScene" uid="uid://douv3iraewxih" path="res://Card/Card_Sence/example_card.tscn" id="8_8g3qx"]
