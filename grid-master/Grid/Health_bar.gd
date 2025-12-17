@@ -17,7 +17,7 @@ func update_health(current: int, max_health: int) -> void:
 	damage_bar.max_value = max_health
 
 	if health <= 0:
-		print("Game over")
+		GlobalSignal.emit_signal("player_died", 1)
 		#queue_free()
 
 	if health < previous:

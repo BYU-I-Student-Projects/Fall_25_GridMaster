@@ -1,5 +1,6 @@
 extends Node
 
+@onready var death_message: Label = $Death_Message
 var player_one_hand: Array = []
 var player_one_discard_pile: Array = []
 var player_two_hand: Array = []
@@ -9,14 +10,18 @@ var current_player_discard_pile: Array = []
 @onready var bottom_bar: HBoxContainer = $Deck/UI_Layer/Bottom_Bar
 const CARDS_DIRECTORY = "res://Card/Card_Sence/"
 var card_registry = {}
-var current_player = 0
+var current_player
 const CARD_SPACING = 10
 const CARD_WIDTH = 160
+
 
 func _ready() -> void:
 	GlobalSignal.connect("card_effect_finished", _on_card_used)
 	GlobalSignal.connect("deck_is_empty", deck_empty)
+	GlobalSignal.connect("end_current_turn", end_current_turn)
+	GlobalSignal.connect("player_died", _on_player_died)
 	
+	await GlobalSignal.deck_loaded
 	card_registry = $Deck.load_card_classes(CARDS_DIRECTORY)
 	
 	current_player = 1
@@ -25,6 +30,11 @@ func _ready() -> void:
 	print("Loaded card registry keys: ", card_registry.keys())
 	start_of_round()
 	print("Player's starting hand data: ", current_player_hand)
+
+# --- NEW FUNCTION ---
+func _on_player_died(playerID: int) -> void:
+	death_message.text = "Player %d has died!" % playerID
+	death_message.visible = true
 
 func current_player_start():
 	if current_player == 1:
@@ -63,7 +73,7 @@ func start_of_round():
 func draw_hand(cards_to_draw: int):
 	print("starting to draw cards")
 	for x in range(cards_to_draw):
-		var new_card_data = $Deck.draw_card()
+		var new_card_data = $Deck.draw_card(current_player)
 		if new_card_data != null:
 			current_player_hand.append(new_card_data)
 			load_card_into_container(new_card_data) 
@@ -108,5 +118,30 @@ func _on_card_used(card):
 func deck_empty():
 	var draw_pile = current_player_discard_pile
 	print(draw_pile)
-	$Deck.deck_is_empty(draw_pile)
+	$Deck.deck_is_empty(draw_pile, current_player)
 	
+func end_current_turn():
+	var children = bottom_bar.get_children()
+	print(children)
+	for child in children:
+		child.free()
+	print("Children count after await: ", get_child_count())
+		
+	if current_player == 1:
+		player_one_discard_pile = current_player_discard_pile
+		player_one_hand = current_player_hand
+		current_player = 2
+		current_player_start()
+		start_of_round()
+		return
+	if current_player == 2:
+		player_two_discard_pile = current_player_discard_pile
+		player_two_hand = current_player_hand
+		current_player = 1
+		current_player_start()
+		start_of_round()
+		return
+
+
+func _on_button_pressed() -> void:
+	get_tree().change_scene_to_file("res://Deck/shop.tscn")

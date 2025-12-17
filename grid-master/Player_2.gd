@@ -5,12 +5,48 @@ var max_health := 100
 var health := max_health
 var pID := 2
 var resource_count := 0
+var turntimer := [0,0,0,0,0]
+enum status{POISON,FREEZE,BURN,REGEN,SHOCK}
+var Main
 
 func _ready():
-	GlobalSignal.connect("player_add_value", self._on_player_add_value)
+	Main = get_parent()
+	GlobalSignal.connect("player_add_value", self._on_player_add_value, CONNECT_DEFERRED)
+
+func _status_effect():
+	for i in turntimer:
+		
+		if status[i] == status.POISON:
+			#player takes gradual damage for a few turns.
+			if turntimer[0] > 0:
+				apply_damage(10)
+				
+		if status[i] == status.FREEZE:
+			#player cant use one card for one turn. Card is discarded next turn.
+			if turntimer[i] > 0:
+				apply_damage(10)
+			
+		if status[i] == status.BURN:
+			#player deals less damage for a few turns.
+			if turntimer[i] > 0:
+				apply_damage(10)
+				
+		if status[i] == status.REGEN:
+			#player gradually heals for a few turns.
+			if turntimer[i] > 0:
+				heal(20)
+				
+		if status[i] == status.SHOCK:
+			#player cannot move for a turn.
+			if turntimer[i] > 0:
+				apply_damage(10)
+
+		if turntimer[i] > 1:
+			turntimer[i] -= 1
+
 
 func _on_player_add_value(playerID, valueID, value):
-	if playerID == pID:
+	if (playerID == 1 and Main.current_player == pID) or (playerID == 2 and Main.current_player != pID):
 		if (valueID == 1):
 			heal(value)
 		if valueID == 2:
@@ -23,7 +59,10 @@ func _on_player_add_value(playerID, valueID, value):
 func apply_damage(amount: int):
 	health = clamp(health - amount, 0, max_health)
 	print("Player 2 took %d damage! Health is now %d" % [amount, health])
+	if health == 0:
+		GlobalSignal.emit_signal("player_died", pID)
 
 func heal(amount: int):
 	health = clamp(health + amount, 0, max_health)
 	print("Player 2 heal %d health is now %d" % [amount,health])
+	

@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://h1qmj5gy06sv"]
+
+[ext_resource type="PackedScene" uid="uid://mmukdh7uayme" path="res://Card/Card_Sence/card.tscn" id="1_58ufk"]
+[ext_resource type="Script" uid="uid://cvpehwrx3p63h" path="res://Card/cone_of_cold.gd" id="2_00jd6"]
+[ext_resource type="Texture2D" uid="uid://bqfs3swqpctsa" path="res://Card/Card_PNGS/Card_ice_blast.png" id="3_xarje"]
+
+[node name="Card" instance=ExtResource("1_58ufk")]
+script = ExtResource("2_00jd6")
+
+[node name="Sprite2D" parent="." index="0"]
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("3_xarje")
+
+[node name="Control" parent="." index="1"]
+offset_top = 6.0
+offset_bottom = 290.0
+
+[node name="CardMoveButton" parent="Control" index="0"]
+text = "Move"
+
+[node name="CardActionButton" parent="Control" index="1"]
+text = "Attack"
+
+[node name="CardResourceButton" parent="Control" index="2"]
+text = "Gain Resources"

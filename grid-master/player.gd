@@ -7,8 +7,14 @@ var pID := 1
 var resource_count := 0
 var turntimer := [0,0,0,0,0]
 enum status{POISON,FREEZE,BURN,REGEN,SHOCK}
+var Main
 
 @onready var health_bar = $CanvasLayer/HealthBar
+
+func _ready():
+	Main = get_parent()
+	_update_health()
+	GlobalSignal.connect("player_add_value", self._on_player_add_value, CONNECT_DEFERRED)
 
 func _status_effect():
 	for i in turntimer:
@@ -41,12 +47,8 @@ func _status_effect():
 		if turntimer[i] > 1:
 			turntimer[i] -= 1
 
-func _ready():
-	_update_health()
-	GlobalSignal.connect("player_add_value", self._on_player_add_value)
-
 func _on_player_add_value(playerID, valueID, value):
-	if (playerID == pID):
+	if (playerID == 1 and Main.current_player == pID) or (playerID == 2 and Main.current_player != pID):
 		if (valueID == 1):
 			heal(value)
 		elif (valueID == 2):
@@ -59,6 +61,8 @@ func _on_player_add_value(playerID, valueID, value):
 func apply_damage(amount: int):
 	health = clamp(health - amount, 0, max_health)
 	_update_health()
+	if health == 0:
+		GlobalSignal.emit_signal("player_died", pID)
 
 func heal(amount: int):
 	health = clamp(health + amount, 0, max_health)

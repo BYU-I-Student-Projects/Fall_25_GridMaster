@@ -1,0 +1,77 @@
+[gd_scene load_steps=5 format=3 uid="uid://bi6erjwa8773r"]
+
+[ext_resource type="Script" uid="uid://jc3a65ypgnkn" path="res://Deck/shop.gd" id="1_hka2t"]
+[ext_resource type="PackedScene" uid="uid://mmukdh7uayme" path="res://Card/Card_Sence/card.tscn" id="2_dlnl0"]
+[ext_resource type="Texture2D" uid="uid://dqihf1q5b1bsx" path="res://simple flat gold coi.png" id="3_k2818"]
+[ext_resource type="Texture2D" uid="uid://d3l5mvrovphkv" path="res://simple flat silver c.png" id="4_fgumx"]
+
+[node name="Shop" type="Node2D"]
+position = Vector2(0, 40)
+script = ExtResource("1_hka2t")
+
+[node name="Game" type="Button" parent="."]
+custom_minimum_size = Vector2(200, 40)
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 200.0
+grow_vertical = 0
+text = "GAME"
+metadata/_edit_use_anchors_ = true
+
+[node name="Shuffel" type="Button" parent="."]
+custom_minimum_size = Vector2(200, 40)
+offset_right = 200.0
+offset_bottom = 40.0
+text = "SHUFFEL"
+metadata/_edit_use_anchors_ = true
+
+[node name="Card" parent="." instance=ExtResource("2_dlnl0")]
+position = Vector2(-2, 88)
+
+[node name="Card2" parent="." instance=ExtResource("2_dlnl0")]
+position = Vector2(182, 88)
+
+[node name="Card3" parent="." instance=ExtResource("2_dlnl0")]
+position = Vector2(366, 88)
+
+[node name="Card4" parent="." instance=ExtResource("2_dlnl0")]
+position = Vector2(550, 88)
+
+[node name="Card5" parent="." instance=ExtResource("2_dlnl0")]
+position = Vector2(-2, 392)
+
+[node name="Card6" parent="." instance=ExtResource("2_dlnl0")]
+position = Vector2(182, 392)
+
+[node name="Card7" parent="." instance=ExtResource("2_dlnl0")]
+position = Vector2(366, 392)
+
+[node name="Card8" parent="." instance=ExtResource("2_dlnl0")]
+position = Vector2(550, 392)
+
+[node name="Card9" parent="." instance=ExtResource("2_dlnl0")]
+position = Vector2(-2, 696)
+
+[node name="Card10" parent="." instance=ExtResource("2_dlnl0")]
+position = Vector2(182, 696)
+
+[node name="Card11" parent="." instance=ExtResource("2_dlnl0")]
+position = Vector2(366, 696)
+
+[node name="Card12" parent="." instance=ExtResource("2_dlnl0")]
+position = Vector2(550, 696)
+
+[node name="SimpleFlatGoldCoi" type="Sprite2D" parent="."]
+position = Vector2(528, 24)
+scale = Vector2(0.125, 0.125)
+texture = ExtResource("3_k2818")
+
+[node name="SimpleFlatSilverC" type="Sprite2D" parent="."]
+position = Vector2(656, 24)
+scale = Vector2(0.125, 0.125)
+texture = ExtResource("4_fgumx")
+
+[connection signal="pressed" from="Game" to="." method="_on_game_pressed"]
+[connection signal="pressed" from="Shuffel" to="." method="_on_shuffel_pressed"]

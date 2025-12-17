@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://xgrgww4cfgm0"]
+
+[ext_resource type="PackedScene" uid="uid://mmukdh7uayme" path="res://Card/Card_Sence/card.tscn" id="1_qjutl"]
+[ext_resource type="Script" uid="uid://bp5uf1ykvxcbb" path="res://Card/arrow.gd" id="2_auigh"]
+[ext_resource type="Texture2D" uid="uid://yqdiu4iknpex" path="res://Card/Card_PNGS/Card_arrow.png" id="3_ua8wo"]
+
+[node name="Card" instance=ExtResource("1_qjutl")]
+script = ExtResource("2_auigh")
+
+[node name="Sprite2D" parent="." index="0"]
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("3_ua8wo")
+
+[node name="Control" parent="." index="1"]
+offset_left = -1.0
+offset_top = 6.0
+offset_right = 159.0
+offset_bottom = 290.0
+
+[node name="CardMoveButton" parent="Control" index="0"]
+text = "Move"
+
+[node name="CardActionButton" parent="Control" index="1"]
+text = "Attack"
+
+[node name="CardResourceButton" parent="Control" index="2"]
+text = "Gain Resources"
